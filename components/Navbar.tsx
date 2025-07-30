@@ -3,12 +3,18 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useAuth } from "@/app/context/AuthContext"
+import { FiUser } from "react-icons/fi"
+import { FaAngleDown } from "react-icons/fa6"
+import { FaAngleUp } from "react-icons/fa6"
+import { useState } from "react"
 
 const Navbar = () => {
   const pathname = usePathname()
-  const { user } = useAuth()
+  const { user, logout } = useAuth()
 
-  console.log("User: ", user)
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(true)
+
+  // console.log("User: ", user)
 
   return (
     <header className="">
@@ -26,11 +32,19 @@ const Navbar = () => {
         </form>
 
         {user ? (
-          <>
-            <p>
-              Welcome, <span className="font-medium">{user.name}</span>
-            </p>
-          </>
+          <div className="relative flex items-center gap-1.5 cursor-pointer">
+            <FiUser className="h-7 w-7" />
+            <span className="font-medium">{user.name}</span>
+            {isUserMenuOpen ? <FaAngleUp /> : <FaAngleDown />}
+            {isUserMenuOpen && (
+              <div className="absolute top-7 bg-gray-50/50 border border-black rounded-lg p-1 flex flex-col">
+                <Link href="/dashboard">Dashboard</Link>
+                <Link href="/signin" onClick={() => logout()}>
+                  LogOut
+                </Link>
+              </div>
+            )}
+          </div>
         ) : (
           <>
             <div className="flex items-center space-x-3">

@@ -8,8 +8,8 @@ export default {
         lato: ["Lato", "sans-serif"],
       },
       colors: {
-        darkCyan: darkCyan,
-        white: white,
+        darkCyan: "#588b8bff",
+        white: "#ffffff",
         apricot: apricot,
         tangerine: tangerine,
         jasper: jasper,
