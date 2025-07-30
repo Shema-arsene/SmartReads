@@ -6,13 +6,19 @@ type User = {
   _id: string
   name: string
   email: string
+  userRole: string
 }
 
 interface AuthContextType {
   user: User | null
   loading: boolean
   login: (email: string, password: string) => Promise<void>
-  signup: (name: string, email: string, password: string) => Promise<void>
+  signup: (
+    name: string,
+    email: string,
+    userRole: string,
+    password: string
+  ) => Promise<void>
   logout: () => void
 }
 
@@ -53,13 +59,23 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     localStorage.setItem("token", data.token)
   }
 
-  const signup = async (name: string, email: string, password: string) => {
-    console.log("🚀 Attempting signup with:", { name, email })
+  const signup = async (
+    name: string,
+    email: string,
+    userRole: string,
+    password: string
+  ) => {
+    console.log("🚀 Attempting signup with:", {
+      name,
+      email,
+      password,
+      userRole,
+    })
 
     const res = await fetch("/api/auth/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, password }),
+      body: JSON.stringify({ name, email, userRole, password }),
     })
 
     console.log("📡 Response status:", res.status)
