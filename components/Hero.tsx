@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Metadata } from "next"
+import UserGreet from "./UserGreet"
 
 export const metadata: Metadata = {
   title: "SmartReads",
@@ -13,10 +14,11 @@ export const metadata: Metadata = {
 }
 
 const Hero = () => {
+
   return (
     <section className="w-full flex flex-col md:flex-row max-md:gap-7">
       <aside className="flex-1 flex flex-col items-start justify-center gap-5 px-10 md:pl-20">
-        <h1 className="text-xl md:text-3xl font-bold">Meet SmartReads</h1>
+        <UserGreet />
         <p className="my-3 text-lg">Ebooks, audiobooks, and so much more</p>
         <Link
           href="/"
