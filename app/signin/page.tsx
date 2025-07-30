@@ -23,7 +23,7 @@ const SignInPage = () => {
     }
 
     try {
-      const res = await login(email, password)
+      await login(email, password)
       console.log("Logged in successfully")
 
       router.push("/")
