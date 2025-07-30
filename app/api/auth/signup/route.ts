@@ -1,6 +1,5 @@
 // app/api/auth/signup/route.ts
 import { NextRequest } from "next/server"
-import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
 import dbConnect from "@/backend/lib/db"
 import User from "@/backend/models/User"
@@ -12,7 +11,9 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json()
-    const { name, email, password } = body
+    const { name, email, userRole, password } = body
+
+    console.log("Incoming body", body)
 
     console.log("📝 Registration attempt:", {
       name,
@@ -21,7 +22,7 @@ export async function POST(request: NextRequest) {
     })
 
     // Validate required fields
-    if (!name || !email || !password) {
+    if (!name || !email || !password || !userRole) {
       console.log("Missing fields:", {
         name: !!name,
         email: !!email,
@@ -52,15 +53,12 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Hash the password
-    const saltRounds = 12
-    const hashedPassword = await bcrypt.hash(password, saltRounds)
-
     // Create new user
     const newUser = new User({
       name,
       email,
-      password: hashedPassword,
+      role: userRole,
+      password,
     })
 
     // Save user to database
@@ -80,6 +78,7 @@ export async function POST(request: NextRequest) {
           id: savedUser._id,
           email: savedUser.email,
           name: savedUser.name,
+          role: savedUser.role,
         },
       }),
       {
