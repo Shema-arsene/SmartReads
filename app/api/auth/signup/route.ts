@@ -2,8 +2,8 @@
 import { NextRequest } from "next/server"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
-import dbConnect from "@/backend/lib/db" // Adjust path as needed
-import User from "@/backend/models/User" // Adjust path as needed
+import dbConnect from "@/backend/lib/db"
+import User from "@/backend/models/User"
 
 const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key"
 

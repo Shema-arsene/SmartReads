@@ -24,11 +24,11 @@ const SignInPage = () => {
 
     try {
       const res = await login(email, password)
-      alert("Logged in successfully")
+      console.log("Logged in successfully")
 
-      router.push("/dashboard")
+      router.push("/")
     } catch (err) {
-      alert("Login failed")
+      console.log("Login failed")
       setError("Something went wrong")
       console.log("Error: ", err)
     }
