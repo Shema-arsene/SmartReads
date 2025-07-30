@@ -14,7 +14,9 @@ export const registerUser = async (body: any) => {
     // Validate required fields
     if (!name || !email || !password) {
       return new Response(
-        JSON.stringify({ message: "Missing required fields: name, email, or password" }),
+        JSON.stringify({
+          message: "Missing required fields: name, email, or password",
+        }),
         {
           status: 400,
           headers: { "Content-Type": "application/json" },
@@ -24,10 +26,10 @@ export const registerUser = async (body: any) => {
 
     // Check if user already exists
     const existingUser = await User.findOne({ email })
-    
+
     if (existingUser) {
       return new Response(
-        JSON.stringify({ message: "User already exists with this email." }), 
+        JSON.stringify({ message: "User already exists with this email." }),
         {
           status: 409,
           headers: { "Content-Type": "application/json" },
@@ -50,16 +52,18 @@ export const registerUser = async (body: any) => {
     const savedUser = await newUser.save()
 
     // Generate JWT token
-    const token = jwt.sign({ id: savedUser._id }, JWT_SECRET, { expiresIn: "7d" })
+    const token = jwt.sign({ id: savedUser._id }, JWT_SECRET, {
+      expiresIn: "7d",
+    })
 
     return new Response(
       JSON.stringify({
         message: "User registered successfully",
         token,
-        user: { 
-          id: savedUser._id, 
-          email: savedUser.email, 
-          name: savedUser.name 
+        user: {
+          id: savedUser._id,
+          email: savedUser.email,
+          name: savedUser.name,
         },
       }),
       {
@@ -69,11 +73,11 @@ export const registerUser = async (body: any) => {
     )
   } catch (error: any) {
     console.error("Registration error:", error)
-    
+
     // Handle duplicate key error (in case of race condition)
     if (error.code === 11000) {
       return new Response(
-        JSON.stringify({ message: "User already exists with this email." }), 
+        JSON.stringify({ message: "User already exists with this email." }),
         {
           status: 409,
           headers: { "Content-Type": "application/json" },
@@ -82,7 +86,7 @@ export const registerUser = async (body: any) => {
     }
 
     return new Response(
-      JSON.stringify({ message: "Server error during registration." }), 
+      JSON.stringify({ message: "Server error during registration." }),
       {
         status: 500,
         headers: { "Content-Type": "application/json" },
@@ -91,27 +95,76 @@ export const registerUser = async (body: any) => {
   }
 }
 
-export const loginUser = async (req: any, res: any) => {
+export const loginUser = async (body: any) => {
   await dbConnect()
 
   try {
-    const { email, password } = req.body
+    const { email, password } = body
 
+    // Validate required fields
+    if (!email || !password) {
+      return new Response(
+        JSON.stringify({
+          message: "Missing required fields: email or password",
+        }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
+      )
+    }
+
+    // Find the user by email
     const user = await User.findOne({ email })
-    if (!user) return res.status(404).json({ message: "User not found." })
 
+    if (!user) {
+      return new Response(
+        JSON.stringify({ message: "Invalid email or password" }),
+        {
+          status: 401,
+          headers: { "Content-Type": "application/json" },
+        }
+      )
+    }
+
+    // Compare password
     const isMatch = await bcrypt.compare(password, user.password)
-    if (!isMatch)
-      return res.status(400).json({ message: "Invalid credentials." })
+    if (!isMatch) {
+      return new Response(
+        JSON.stringify({ message: "Invalid email or password" }),
+        {
+          status: 401,
+          headers: { "Content-Type": "application/json" },
+        }
+      )
+    }
 
+    // Generate JWT token
     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "7d" })
 
-    return res.status(200).json({
-      token,
-      user: { id: user._id, email: user.email, name: user.name },
-    })
+    return new Response(
+      JSON.stringify({
+        message: "Login successful",
+        token,
+        user: {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+        },
+      }),
+      {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }
+    )
   } catch (error) {
-    console.error(error)
-    return res.status(500).json({ message: "Server error." })
+    console.error("Login error:", error)
+    return new Response(
+      JSON.stringify({ message: "Server error during login." }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      }
+    )
   }
 }
