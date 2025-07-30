@@ -2,8 +2,11 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import { useAuth } from "@/app/context/AuthContext"
 
 const SignUpPage = () => {
+  const { signup } = useAuth()
+
   const [email, setEmail] = useState("")
   const [name, setName] = useState("")
   const [password, setPassword] = useState("")
@@ -11,33 +14,29 @@ const SignUpPage = () => {
   const [error, setError] = useState("")
   const router = useRouter()
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setError("")
 
+    if (!name || !email || !password) {
+      setError("All fields are required!")
+      return
+    }
+
+    console.log({ name, email, password, confirmPassword })
+
     if (password !== confirmPassword) {
-      setError("Passwords don't match")
+      setError("Passwords don't match!")
       return
     }
 
     try {
-      const res = await fetch("/api/auth/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name, email, password }),
-      })
+      await signup(name, email, password)
 
-      const data = await res.json()
-
-      if (!res.ok) {
-        throw new Error(data.message || "Sign up failed")
-      }
-
-      router.push("/signin")
+      router.push("/")
     } catch (err: any) {
       setError(err.message || "Something went wrong. Please try again.")
+      console.log("Error: ", err)
     }
   }
 
@@ -54,7 +53,6 @@ const SignUpPage = () => {
             value={name}
             onChange={(e) => setName(e.target.value)}
             className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-700"
-            required
           />
           <input
             type="email"
@@ -62,7 +60,6 @@ const SignUpPage = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-700"
-            required
           />
           <input
             type="password"
@@ -70,7 +67,6 @@ const SignUpPage = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-700"
-            required
           />
           <input
             type="password"
@@ -78,7 +74,6 @@ const SignUpPage = () => {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-700"
-            required
           />
           {error && <p className="text-red-600 text-sm">{error}</p>}
           <button

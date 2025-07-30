@@ -1,20 +1,36 @@
+// app/api/auth/signup/route.ts
+import { NextRequest } from "next/server"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
-import User from "@/backend/models/User"
-import dbConnect from "@/backend/lib/db"
+import dbConnect from "@/backend/lib/db" // Adjust path as needed
+import User from "@/backend/models/User" // Adjust path as needed
 
-const JWT_SECRET = process.env.JWT_SECRET!
+const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key"
 
-export const registerUser = async (body: any) => {
+export async function POST(request: NextRequest) {
   await dbConnect()
 
   try {
+    const body = await request.json()
     const { name, email, password } = body
+
+    console.log("📝 Registration attempt:", {
+      name,
+      email,
+      hasPassword: !!password,
+    })
 
     // Validate required fields
     if (!name || !email || !password) {
+      console.log("Missing fields:", {
+        name: !!name,
+        email: !!email,
+        password: !!password,
+      })
       return new Response(
-        JSON.stringify({ message: "Missing required fields: name, email, or password" }),
+        JSON.stringify({
+          message: "Missing required fields: name, email, or password",
+        }),
         {
           status: 400,
           headers: { "Content-Type": "application/json" },
@@ -24,10 +40,11 @@ export const registerUser = async (body: any) => {
 
     // Check if user already exists
     const existingUser = await User.findOne({ email })
-    
+
     if (existingUser) {
+      console.log("User already exists:", email)
       return new Response(
-        JSON.stringify({ message: "User already exists with this email." }), 
+        JSON.stringify({ message: "User already exists with this email." }),
         {
           status: 409,
           headers: { "Content-Type": "application/json" },
@@ -48,18 +65,21 @@ export const registerUser = async (body: any) => {
 
     // Save user to database
     const savedUser = await newUser.save()
+    console.log("✅ User created successfully:", savedUser._id)
 
     // Generate JWT token
-    const token = jwt.sign({ id: savedUser._id }, JWT_SECRET, { expiresIn: "7d" })
+    const token = jwt.sign({ id: savedUser._id }, JWT_SECRET, {
+      expiresIn: "7d",
+    })
 
     return new Response(
       JSON.stringify({
         message: "User registered successfully",
         token,
-        user: { 
-          id: savedUser._id, 
-          email: savedUser.email, 
-          name: savedUser.name 
+        user: {
+          id: savedUser._id,
+          email: savedUser.email,
+          name: savedUser.name,
         },
       }),
       {
@@ -69,11 +89,11 @@ export const registerUser = async (body: any) => {
     )
   } catch (error: any) {
     console.error("Registration error:", error)
-    
+
     // Handle duplicate key error (in case of race condition)
     if (error.code === 11000) {
       return new Response(
-        JSON.stringify({ message: "User already exists with this email." }), 
+        JSON.stringify({ message: "User already exists with this email." }),
         {
           status: 409,
           headers: { "Content-Type": "application/json" },
@@ -82,36 +102,11 @@ export const registerUser = async (body: any) => {
     }
 
     return new Response(
-      JSON.stringify({ message: "Server error during registration." }), 
+      JSON.stringify({ message: "Server error during registration." }),
       {
         status: 500,
         headers: { "Content-Type": "application/json" },
       }
     )
-  }
-}
-
-export const loginUser = async (req: any, res: any) => {
-  await dbConnect()
-
-  try {
-    const { email, password } = req.body
-
-    const user = await User.findOne({ email })
-    if (!user) return res.status(404).json({ message: "User not found." })
-
-    const isMatch = await bcrypt.compare(password, user.password)
-    if (!isMatch)
-      return res.status(400).json({ message: "Invalid credentials." })
-
-    const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "7d" })
-
-    return res.status(200).json({
-      token,
-      user: { id: user._id, email: user.email, name: user.name },
-    })
-  } catch (error) {
-    console.error(error)
-    return res.status(500).json({ message: "Server error." })
   }
 }

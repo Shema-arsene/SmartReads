@@ -20,12 +20,15 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null)
+  const [token, setToken] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
 
   // Check if user is already logged in
   useEffect(() => {
+    const storedToken = localStorage.getItem("token")
     const storedUser = localStorage.getItem("user")
-    if (storedUser) {
+    if (storedToken && storedUser) {
+      setToken(storedToken)
       setUser(JSON.parse(storedUser))
     }
     setLoading(false)
@@ -39,34 +42,46 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     })
 
     if (!res.ok) {
-      throw new Error("Login failed")
+      const errorData = await res.json()
+      throw new Error(errorData.message || "Login failed")
     }
 
     const data = await res.json()
     setUser(data.user)
+    setToken(data.token)
     localStorage.setItem("user", JSON.stringify(data.user))
     localStorage.setItem("token", data.token)
   }
 
   const signup = async (name: string, email: string, password: string) => {
+    console.log("🚀 Attempting signup with:", { name, email })
+
     const res = await fetch("/api/auth/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, email, password }),
     })
 
+    console.log("📡 Response status:", res.status)
+
     if (!res.ok) {
-      throw new Error("Signup failed")
+      const errorData = await res.json()
+      console.error("Signup error:", errorData)
+      throw new Error(errorData.message || "Signup failed")
     }
 
     const data = await res.json()
+    console.log("✅ Signup successful:", data)
+
     setUser(data.user)
+    setToken(data.token)
     localStorage.setItem("user", JSON.stringify(data.user))
     localStorage.setItem("token", data.token)
   }
 
   const logout = () => {
     setUser(null)
+    setToken(null)
     localStorage.removeItem("user")
     localStorage.removeItem("token")
   }

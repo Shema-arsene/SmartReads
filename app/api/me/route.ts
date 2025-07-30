@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import jwt from "jsonwebtoken"
-import connectDB from "@/lib/db"
-import User from "@/models/User"
+import connectDB from "@/backend/lib/db"
+import User from "@/backend/models/User"
 
 export async function GET(req: NextRequest) {
   await connectDB()

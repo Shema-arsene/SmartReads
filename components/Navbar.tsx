@@ -2,9 +2,13 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { useAuth } from "@/app/context/AuthContext"
 
 const Navbar = () => {
   const pathname = usePathname()
+  const { user } = useAuth()
+
+  console.log("User: ", user)
 
   return (
     <header className="">
@@ -21,20 +25,30 @@ const Navbar = () => {
           />
         </form>
 
-        <div className="flex items-center space-x-3">
-          <Link
-            href="/"
-            className="bg-black text-white font-medium px-4 py-2 rounded-lg hover:opacity-70 duration-300"
-          >
-            Read free for 30 days
-          </Link>
-          <Link
-            href="/signin"
-            className="font-medium border border-black px-3 py-1.5 rounded-lg hover:outline-1 hover:outline-black"
-          >
-            Sign In
-          </Link>
-        </div>
+        {user ? (
+          <>
+            <p>
+              Welcome, <span className="font-medium">{user.name}</span>
+            </p>
+          </>
+        ) : (
+          <>
+            <div className="flex items-center space-x-3">
+              <Link
+                href="/"
+                className="bg-black text-white font-medium px-4 py-2 rounded-lg hover:opacity-70 duration-300"
+              >
+                Read free for 30 days
+              </Link>
+              <Link
+                href="/signin"
+                className="font-medium border border-black px-3 py-1.5 rounded-lg hover:outline-1 hover:outline-black"
+              >
+                Sign In
+              </Link>
+            </div>
+          </>
+        )}
       </section>
       {/* Bottom section */}
       <section className="w-full flex items-center justify-center py-4">
