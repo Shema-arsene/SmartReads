@@ -6,7 +6,7 @@ type User = {
   _id: string
   name: string
   email: string
-  userRole: string
+  role: string
 }
 
 interface AuthContextType {
