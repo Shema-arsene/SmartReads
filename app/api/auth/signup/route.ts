@@ -19,6 +19,7 @@ export async function POST(request: NextRequest) {
       name,
       email,
       hasPassword: !!password,
+      role: userRole,
     })
 
     // Validate required fields
@@ -66,9 +67,13 @@ export async function POST(request: NextRequest) {
     console.log("✅ User created successfully:", savedUser._id)
 
     // Generate JWT token
-    const token = jwt.sign({ id: savedUser._id }, JWT_SECRET, {
-      expiresIn: "7d",
-    })
+    const token = jwt.sign(
+      { id: savedUser._id, role: savedUser.role },
+      JWT_SECRET,
+      {
+        expiresIn: "30d",
+      }
+    )
 
     return new Response(
       JSON.stringify({
