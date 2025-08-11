@@ -35,7 +35,7 @@ export default function PublishBookPage() {
       <h1 className="text-2xl font-bold text-gray-900 mb-4">
         Publish New Book
       </h1>
-      <PublishBookForm />
+      <PublishBookForm user={user} />
     </div>
   )
 }

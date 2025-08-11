@@ -13,6 +13,7 @@ const Navbar = () => {
   const { user, logout } = useAuth()
 
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(true)
+  const [logoutAlert, setLogoutAlert] = useState(false)
 
   // console.log("User: ", user)
 
@@ -27,7 +28,8 @@ const Navbar = () => {
         <form action="">
           <input
             type="text"
-            className="w-lg rounded-full border border-black px-5 py-2"
+            placeholder="Search books, authors, genres..."
+            className="max-md:hidden md:w-xs lg:w-lg rounded-full border border-black px-5 py-2 text-gray-600"
           />
         </form>
 
@@ -39,11 +41,22 @@ const Navbar = () => {
             {isUserMenuOpen && (
               <div className="absolute top-7 bg-gray-50/50 border border-black rounded-lg p-1 flex flex-col">
                 <Link href="/dashboard">Dashboard</Link>
-                <Link href="/signin" onClick={() => logout()}>
+                <Link href="/" onClick={() => setLogoutAlert(true)}>
                   LogOut
                 </Link>
               </div>
             )}
+            {user.role === "author" ||
+              (user.role === "publisher" && (
+                <>
+                  <Link
+                    href="/publish"
+                    className="bg-black text-white font-medium border border-black rounded-lg p-1 whitespace-nowrap"
+                  >
+                    Publish New Book
+                  </Link>
+                </>
+              ))}
           </div>
         ) : (
           <>
@@ -95,6 +108,34 @@ const Navbar = () => {
           }, [] as React.ReactNode[])}
         </nav>
       </section>
+
+      {/* Logout overlay */}
+      {logoutAlert && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+          <div className="max-w-md p-10 flex flex-col items-center justify-center bg-white rounded-lg shadow-lg">
+            <h1 className="font-medium text-xl mb-5">
+              Are you sure you want to log out?
+            </h1>
+            <div className="w-full flex items-center justify-center gap-4 mt-4">
+              <button
+                className="border-2 border-black bg-gray-300 text-black px-4 py-2 rounded-lg font-medium hover:opacity-70 cursor-pointer"
+                onClick={() => setLogoutAlert(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="border-2 border-black bg-red-500 text-white px-4 py-2 rounded-lg font-medium hover:opacity-70 cursor-pointer"
+                onClick={() => {
+                  logout()
+                  setLogoutAlert(false)
+                }}
+              >
+                Logout
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </header>
   )
 }

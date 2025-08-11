@@ -1,9 +1,22 @@
+"use client"
 import Hero from "@/components/Hero"
 import Image from "next/image"
 import Link from "next/link"
+import { useAuth } from "./context/AuthContext"
 import { FaApple, FaGooglePlay } from "react-icons/fa6"
 
 export default function Home() {
+  const { user } = useAuth()
+
+  console.log("User in Home Page:", user)
+
+  if (user?.role === "author" || user?.role === "publisher") {
+    return <div>Admin User</div>
+  }
+
+  if (user?.role === "reader") {
+    return <div>Reader User</div>
+  }
   return (
     <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
       <Hero />
@@ -65,7 +78,6 @@ export default function Home() {
         <aside className="flex-1 flex items-center justify-center p-10">
           <Image
             className="scale-150 md:scale-200"
-            // src="https://images.pexels.com/photos/904616/pexels-photo-904616.jpeg"
             src="https://assets.production.scribd.com/mfe-landing-pages/_next/static/media/everand_get_app_banner_2x.b95fa7db.webp"
             alt="SmartReads_hero_image"
             width={180}

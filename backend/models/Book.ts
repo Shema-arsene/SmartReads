@@ -1,5 +1,23 @@
 import mongoose from "mongoose"
 
+const categoryEnum = [
+  "Fiction",
+  "Non-fiction",
+  "Biography",
+  "Self-help",
+  "Science",
+  "Technology",
+  "History",
+  "Children",
+  "Romance",
+  "Thriller",
+  "Fantasy",
+  "Business",
+  "Education",
+  "Health",
+  "Religion",
+]
+
 const BookSchema = new mongoose.Schema(
   {
     title: {
@@ -12,6 +30,7 @@ const BookSchema = new mongoose.Schema(
     },
     category: {
       type: String,
+      enum: categoryEnum,
       required: true,
     },
     description: {
