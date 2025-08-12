@@ -1,21 +1,22 @@
 "use client"
+
 import Hero from "@/components/Hero"
 import Image from "next/image"
 import Link from "next/link"
 import { useAuth } from "./context/AuthContext"
 import { FaApple, FaGooglePlay } from "react-icons/fa6"
+import AuthorPublisherHomepage from "@/components/AuthorPublisherHomepage"
+import ReaderHomepage from "@/components/ReaderHomepage"
 
 export default function Home() {
   const { user } = useAuth()
 
-  console.log("User in Home Page:", user)
-
   if (user?.role === "author" || user?.role === "publisher") {
-    return <div>Admin User</div>
+    return <AuthorPublisherHomepage />
   }
 
   if (user?.role === "reader") {
-    return <div>Reader User</div>
+    return <ReaderHomepage />
   }
   return (
     <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
