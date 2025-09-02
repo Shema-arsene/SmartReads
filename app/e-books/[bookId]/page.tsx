@@ -41,19 +41,25 @@ export default function BookDetailPage() {
   console.log("Book data:", book)
 
   //   Handle download functionality (Function not being used)
-  const handleDownload = async () => {
-    const res = await fetch(`/api/books/download/${book?._id}`)
-    if (res.redirected) {
-      window.location.href = res.url // Triggers file download
-    }
-  }
+  // const handleDownload = async () => {
+  //   const res = await fetch(`/api/books/download/${book?._id}`)
+  //   if (res.redirected) {
+  //     window.location.href = res.url // Triggers file download
+  //   }
+  // }
 
-  if (loading) return <p className="p-8">Loading book...</p>
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center mt-20 h-screen">
+        <div className="w-16 h-16 border-4 border-[#c8553d] border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    )
+  }
 
   if (!book) return <p className="p-8">Book not found.</p>
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 max-w-4xl mx-auto">
+    <div className="bg-gray-50 rounded-lg shadow-md p-6 max-w-4xl mx-auto">
       <div className="flex flex-col md:flex-row gap-6">
         <img
           src={book.imageUrl}
@@ -75,7 +81,7 @@ export default function BookDetailPage() {
           <p className="text-gray-700 leading-relaxed">{book.description}</p>
 
           <aside className="my-3 flex items-center justify-between">
-            <button>
+            {/* <button>
               <a
                 href={`/api/books/download/${book._id}`}
                 download
@@ -86,11 +92,11 @@ export default function BookDetailPage() {
                 <FiDownload className="mr-2" />
                 Download Book
               </a>
-            </button>
+            </button> */}
 
             <button>
               <a
-                href={`/e-books/bookViewer/${book._id}`}
+                href={`/e-books/read/${book._id}`}
                 className="flex items-center px-4 py-2 bg-[#588b8b] text-white rounded-lg hover:bg-[#476c6c] transition-colors"
               >
                 <FiBookOpen className="mr-2" />
