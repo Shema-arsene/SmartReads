@@ -23,14 +23,6 @@ const Navbar = () => {
           SmartReads
         </Link>
 
-        <form action="">
-          <input
-            type="text"
-            placeholder="Search books, authors, genres..."
-            className="max-md:hidden md:w-xs lg:w-lg rounded-full border border-black px-5 py-2 text-gray-600"
-          />
-        </form>
-
         {user ? (
           <div className="relative flex items-center gap-1.5 cursor-pointer">
             <FiUser className="h-7 w-7" />
