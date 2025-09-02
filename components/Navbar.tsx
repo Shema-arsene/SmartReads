@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useAuth } from "@/app/context/AuthContext"
-import { FiUser } from "react-icons/fi"
+import { FiUser, FiLogOut } from "react-icons/fi"
 import { FaAngleDown } from "react-icons/fa6"
 import { FaAngleUp } from "react-icons/fa6"
 import { useState } from "react"
@@ -14,8 +14,6 @@ const Navbar = () => {
 
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(true)
   const [logoutAlert, setLogoutAlert] = useState(false)
-
-  // console.log("User: ", user)
 
   return (
     <header className="">
@@ -39,30 +37,24 @@ const Navbar = () => {
             <span className="font-medium">{user.name}</span>
             {isUserMenuOpen ? <FaAngleUp /> : <FaAngleDown />}
             {isUserMenuOpen && (
-              <div className="absolute top-7 bg-gray-50/50 border border-black rounded-lg p-1 flex flex-col">
-                <Link href="/dashboard">Dashboard</Link>
-                <Link href="/" onClick={() => setLogoutAlert(true)}>
-                  LogOut
-                </Link>
+              <div className="absolute top-10 right-24 bg-gray-50/50 border border-black rounded-sm p-1 flex flex-col">
+                <Link href="/profile">Profile</Link>
+                <Link href="/">LogOut</Link>
               </div>
             )}
-            {user.role === "author" ||
-              (user.role === "publisher" && (
-                <>
-                  <Link
-                    href="/publish"
-                    className="bg-black text-white font-medium border border-black rounded-lg p-1 whitespace-nowrap"
-                  >
-                    Publish New Book
-                  </Link>
-                </>
-              ))}
+            <button
+              onClick={() => setLogoutAlert(true)}
+              className="ml-4 flex items-center gap-1.5 text-black cursor-pointer"
+            >
+              <FiLogOut />
+              Log out
+            </button>
           </div>
         ) : (
           <>
             <div className="flex items-center space-x-3">
               <Link
-                href="/"
+                href="/checkout"
                 className="bg-black text-white font-medium px-4 py-2 rounded-lg hover:opacity-70 duration-300"
               >
                 Read free for 30 days
@@ -77,36 +69,74 @@ const Navbar = () => {
           </>
         )}
       </section>
+
       {/* Bottom section */}
       <section className="w-full flex items-center justify-center py-4">
-        <nav className="flex items-center text-lg font-thin">
-          {[
-            { href: "/", label: "Home" },
-            { href: "/about", label: "About SmartReads" },
-            { href: "/audio-books", label: "Audio-Books" },
-            { href: "/e-books", label: "E-Books" },
-          ].reduce((acc, { href, label }, index, arr) => {
-            acc.push(
-              <Link
-                key={href}
-                href={href}
-                className={`${
-                  pathname === href ? "underline" : "text-black"
-                } hover:underline duration-300`}
-              >
-                {label}
-              </Link>
-            )
-            if (index < arr.length - 1) {
+        {/* Authors and Publishers Navbar */}
+        {user?.role === "author" ||
+          (user?.role === "publisher" && (
+            <nav className="flex items-center text-lg font-thin">
+              {[
+                { href: "/", label: "Home" },
+                { href: "/about", label: "About SmartReads" },
+                { href: "/publish", label: "Publish a book" },
+              ].reduce((acc, { href, label }, index, arr) => {
+                acc.push(
+                  <Link
+                    key={href}
+                    href={href}
+                    className={`${
+                      pathname === href ? "underline" : "text-black"
+                    } hover:underline duration-300`}
+                  >
+                    {label}
+                  </Link>
+                )
+                if (index < arr.length - 1) {
+                  acc.push(
+                    <span key={`sep-${index}`} className="mx-2 text-gray-600">
+                      |
+                    </span>
+                  )
+                }
+                return acc
+              }, [] as React.ReactNode[])}
+            </nav>
+          ))}
+
+        {/* Readers Navbar */}
+        {user?.role === "reader" && (
+          <nav className="flex items-center text-lg font-thin">
+            {[
+              { href: "/", label: "Home" },
+              { href: "/about", label: "About SmartReads" },
+              { href: "/e-books", label: "E-Books" },
+              { href: "/favorites", label: "Favorites" },
+              { href: "/likes", label: "Likes" },
+              { href: "/read-history", label: "Read History" },
+            ].reduce((acc, { href, label }, index, arr) => {
               acc.push(
-                <span key={`sep-${index}`} className="mx-2 text-gray-600">
-                  |
-                </span>
+                <Link
+                  key={href}
+                  href={href}
+                  className={`${
+                    pathname === href ? "underline" : "text-black"
+                  } hover:underline duration-300`}
+                >
+                  {label}
+                </Link>
               )
-            }
-            return acc
-          }, [] as React.ReactNode[])}
-        </nav>
+              if (index < arr.length - 1) {
+                acc.push(
+                  <span key={`sep-${index}`} className="mx-2 text-gray-600">
+                    |
+                  </span>
+                )
+              }
+              return acc
+            }, [] as React.ReactNode[])}
+          </nav>
+        )}
       </section>
 
       {/* Logout overlay */}
