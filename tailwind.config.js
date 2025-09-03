@@ -1,18 +1,18 @@
-/** @type {import('tailwindcss').config} */
+/** @type {import('tailwindcss').Config} */
 export default {
   content: ["./app/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"Open Sans"', "sans-serif"],
-        lato: ["Lato", "sans-serif"],
+        // override font-sans to use Lato everywhere
+        sans: ["var(--font-lato)", "sans-serif"],
       },
       colors: {
         darkCyan: "#588b8bff",
         white: "#ffffff",
-        apricot: apricot,
-        tangerine: tangerine,
-        jasper: jasper,
+        apricot: "#ffd5c2ff",
+        tangerine: "#f28f3bff",
+        jasper: "#c8553dff",
       },
     },
   },
