@@ -15,92 +15,113 @@ const Footer = () => {
   const CurrentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-gray-50/50">
+    <footer className="bg-gray-50/50 py-10">
       <main className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+        {/* About */}
         <section className="p-5">
           <h1 className="text-lg font-medium my-3">About</h1>
-          <ul>
-            <li>
-              <Link href="/about">About SmartReads</Link>
-            </li>
-            <li>
-              <Link href="/about">Our Blog</Link>
-            </li>
-            <li>
-              <Link href="/about">Join our team!</Link>
-            </li>
-            <li>
-              <Link href="/about">Contact us</Link>
-            </li>
-            <li>
-              <Link href="/about">Redeem gift card</Link>
-            </li>
-          </ul>
-        </section>
 
-        <section className="p-5">
-          <h1 className="text-lg font-medium my-3">Support</h1>
-          <ul>
-            <li>
-              <Link href="/about">Help / FAQ</Link>
-            </li>
-            <li>
-              <Link href="/about">Accessibility</Link>
-            </li>
-            <li>
-              <Link href="/about">Purchase Help</Link>
-            </li>
-            <li>
-              <Link href="/about">AdChoices</Link>
-            </li>
-          </ul>
-        </section>
+          <p className="text-gray-700 my-3">
+            SmartReads is a Premium Digital Library System for Authors, Readers,
+            and Publishers
+          </p>
 
-        <section className="p-5">
-          <h1 className="text-lg font-medium my-3">Legal</h1>
           <ul>
             <li>
-              <Link href="/about">Terms</Link>
+              <Link href="/about" className="hover:underline duration-200">
+                About SmartReads
+              </Link>
             </li>
             <li>
-              <Link href="/about">Privacy</Link>
+              <Link href="/faq" className="hover:underline duration-200">
+                Help / FAQ
+              </Link>
             </li>
             <li>
-              <Link href="/about">Copyright</Link>
-            </li>
-            <li>
-              <Link href="/about">Cookie Preferences</Link>
-            </li>
-            <li>
-              <Link href="/about">
-                Do not sell or share my personal information
+              <Link href="/contact" className="hover:underline duration-200">
+                Contact us
               </Link>
             </li>
           </ul>
         </section>
 
+        {/* Career */}
         <section className="p-5">
-          <h1 className="text-lg font-medium my-3">Social</h1>
+          <h1 className="text-lg font-medium my-3">Career</h1>
           <ul>
-            <li className="flex items-center gap-2">
-              <FaInstagram />
-              <Link href="/about">Instagram</Link>
+            <li>
+              Want to join our team?{" "}
+              <Link
+                href="/about"
+                className="font-medium hover:underline duration-200"
+              >
+                Join our team!
+              </Link>
             </li>
-            <li className="flex items-center gap-2">
-              <FaXTwitter />
-              <Link href="/about">Twitter (X)</Link>
+            <li>
+              <Link href="/contact" className="hover:underline duration-200">
+                Purchase Help
+              </Link>
             </li>
-            <li className="flex items-center gap-2">
-              <FaFacebook />
-              <Link href="/about">Facebook</Link>
-            </li>
-            <li className="flex items-center gap-2">
-              <FaPinterest />
-              <Link href="/about">Pinterest</Link>
+            <li>
+              <Link href="/about" className="hover:underline duration-200">
+                AdChoices
+              </Link>
             </li>
           </ul>
         </section>
 
+        {/* Socials */}
+        <section className="p-5">
+          <h1 className="text-lg font-medium my-3">Social</h1>
+          <ul>
+            <li className="flex items-center gap-2 hover:underline duration-200 cursor-pointer">
+              <FaInstagram />
+              <Link href="https://www.instagram.com/" target="_blank">
+                Instagram
+              </Link>
+            </li>
+            <li className="flex items-center gap-2 hover:underline duration-200 cursor-pointer">
+              <FaXTwitter />
+              <Link href="https://x.com/" target="_blank">
+                Twitter (X)
+              </Link>
+            </li>
+            <li className="flex items-center gap-2 hover:underline duration-200 cursor-pointer">
+              <FaFacebook />
+              <Link href="https://www.facebook.com/" target="_blank">
+                Facebook
+              </Link>
+            </li>
+            <li className="flex items-center gap-2 hover:underline duration-200 cursor-pointer">
+              <FaPinterest />
+              <Link href="https://www.pinterest.com/" target="_blank">
+                Pinterest
+              </Link>
+            </li>
+          </ul>
+        </section>
+
+        {/* Donate */}
+        <section className="p-5">
+          <h1 className="text-lg font-medium my-3">Donate</h1>
+
+          <p className="text-gray-700 my-3">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est,
+            adipisci quibusdam.
+          </p>
+          <p>
+            Feeling generous and would like to donate to our cause,{" "}
+            <Link
+              href="/donation"
+              className="font-medium hover:underline duration-300"
+            >
+              Donate
+            </Link>
+          </p>
+        </section>
+
+        {/* Our Apps */}
         <section className="p-5">
           <h1 className="text-lg font-medium my-3">Get Our Free Apps</h1>
 
@@ -124,7 +145,7 @@ const Footer = () => {
         </section>
       </main>
 
-      <aside className="flex flex-col sm:flex-row items-start sm:items-center justify-between px-10">
+      <aside className="mt-5 flex flex-col sm:flex-row items-start sm:items-center justify-between px-10">
         <div className="flex items-center text-lg font-thin">
           {[
             { href: "/audio-books", label: "Audio-Books" },
