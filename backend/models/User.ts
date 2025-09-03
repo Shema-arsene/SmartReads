@@ -2,14 +2,20 @@ import bcrypt from "bcryptjs"
 import mongoose, { Document } from "mongoose"
 
 export interface IUser extends Document {
-  name: string
+  firstName: string
+  secondName: string
   email: string
   password: string
   role: string
+  profileImage: string
 }
 
 const userSchema = new mongoose.Schema<IUser>({
-  name: {
+  firstName: {
+    type: String,
+    required: true,
+  },
+  secondName: {
     type: String,
     required: true,
   },
@@ -26,6 +32,9 @@ const userSchema = new mongoose.Schema<IUser>({
     type: String,
     enum: ["reader", "author", "publisher"],
     default: "reader",
+  },
+  profileImage: {
+    type: String,
   },
 })
 
