@@ -12,6 +12,8 @@
     "@cyntler/react-doc-viewer": "^1.17.0",
     "@paypal/checkout-server-sdk": "^1.0.3",
     "@paypal/react-paypal-js": "^8.8.3",
+    "@radix-ui/react-alert-dialog": "^1.1.15",
+    "@radix-ui/react-slot": "^1.2.3",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "bcryptjs": "^3.0.2",
     "class-variance-authority": "^0.7.1",
