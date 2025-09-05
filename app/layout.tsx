@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import { Lato } from "next/font/google"
-import "./globals.css"
+import "./globals.css" 
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import { AuthProvider } from "./context/AuthContext"
@@ -24,11 +24,13 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={`${lato.variable} antialiased font-sans`}>
+    <html lang="en" className="h-full">
+      <body className={`${lato.variable} antialiased font-sans min-h-screen flex flex-col`}>
         <AuthProvider>
           <Navbar />
-          {children}
+          <main className="flex-1 w-full">
+            {children}
+          </main>
           <Footer />
         </AuthProvider>
       </body>

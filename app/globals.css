@@ -1,7 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import "tailwindcss";
 
-@plugin "tailwindcss-animate";
-@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -11,6 +10,11 @@
   --apricot: #ffd5c2ff;
   --tangerine: #f28f3bff;
   --jasper: #c8553dff;
+  /* Add your colors here */
+  --custom-dark-cyan: #588b8bff;
+  --custom-apricot: #ffd5c2ff;
+  --custom-tangerine: #f28f3bff;
+  --custom-jasper: #c8553dff;
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.129 0.042 264.695);
@@ -56,6 +60,11 @@
 }
 
 @theme inline {
+  --color-custom-dark-cyan: var(--custom-dark-cyan);
+  --color-custom-apricot: var(--custom-apricot);
+  --color-custom-tangerine: var(--custom-tangerine);
+  --color-custom-jasper: var(--custom-jasper);
+  
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -93,6 +102,7 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+
 .dark {
   --background: oklch(0.129 0.042 264.695);
   --foreground: oklch(0.984 0.003 247.858);
@@ -127,17 +137,26 @@
   --sidebar-ring: oklch(0.551 0.027 264.364);
 }
 
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 47.4% 11.2%;
-    --primary: 200 40% 40%; /* example: map to darkCyan */
-    --secondary: 15 85% 50%; /* example: map to jasper */
-  }
+@layer base {  
   * {
     @apply border-border outline-ring/50;
+    font-family: "Poppins", sans-serif;
   }
   body {
     @apply bg-background text-foreground;
+  }
+  
+  /* Add these missing base styles */
+  html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    
+  }
+  
+  main {
+    width: 100%;
+    min-height: 100vh;
   }
 }
