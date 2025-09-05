@@ -205,7 +205,7 @@ const PublishBookForm = ({ user }: PublishBookFormProps) => {
       setError(err.message || "Something went wrong.")
     } finally {
       setLoading(false)
-      // router.replace("/")
+      router.replace("/")
     }
   }
 
@@ -333,6 +333,11 @@ const PublishBookForm = ({ user }: PublishBookFormProps) => {
           disabled={loading}
           className="bg-[#c8553dff] text-white font-medium px-4 py-2 rounded-lg hover:bg-[#e0553dff] cursor-pointer"
         >
+          {loading && (
+            <div className="flex justify-center items-center h-[70vh]">
+              <div className="w-6 h-6 border-4 border-[#c8553dff] border-t-transparent rounded-full animate-spin"></div>
+            </div>
+          )}
           {loading ? "Publishing..." : "Publish Book"}
         </button>
       </form>
