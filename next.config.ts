@@ -4,15 +4,15 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "http",
+        protocol: "https",
         hostname: "assets.production.scribd.com",
       },
       {
-        protocol: "http",
+        protocol: "https",
         hostname: "images.pexels.com",
       },
       {
-        protocol: "http",
+        protocol: "https",
         hostname: "res.cloudinary.com",
       },
     ],
