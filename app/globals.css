@@ -128,6 +128,12 @@
 }
 
 @layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 47.4% 11.2%;
+    --primary: 200 40% 40%; /* example: map to darkCyan */
+    --secondary: 15 85% 50%; /* example: map to jasper */
+  }
   * {
     @apply border-border outline-ring/50;
   }
