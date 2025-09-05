@@ -2,10 +2,19 @@ import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
   images: {
-    domains: [
-      "assets.production.scribd.com",
-      "images.pexels.com",
-      "res.cloudinary.com",
+    remotePatterns: [
+      {
+        protocol: "http",
+        hostname: "assets.production.scribd.com",
+      },
+      {
+        protocol: "http",
+        hostname: "images.pexels.com",
+      },
+      {
+        protocol: "http",
+        hostname: "res.cloudinary.com",
+      },
     ],
   },
 }
