@@ -8,8 +8,6 @@ const ProfileAvatar = () => {
   const userNames = user?.firstName + " " + user?.secondName
   const userInitials = getInitials(userNames ?? "")
 
-  console.log("userInitials:", user)
-
   return (
     <>
       <Avatar>
