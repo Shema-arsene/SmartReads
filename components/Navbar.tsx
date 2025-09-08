@@ -3,12 +3,12 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useAuth } from "@/app/context/AuthContext"
-import { FiUser, FiLogOut } from "react-icons/fi"
+import { FiUser } from "react-icons/fi"
 import { FaAngleDown } from "react-icons/fa6"
 import { FaAngleUp } from "react-icons/fa6"
 import { useState } from "react"
-import { getInitials } from "@/utils/getInitials"
 import LogoutButton from "@/components/uiComponent/LogoutButton"
+import ProfileAvatar from "@/components/uiComponent/ProfileAvatar"
 
 const Navbar = () => {
   const pathname = usePathname()
@@ -16,8 +16,6 @@ const Navbar = () => {
 
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(true)
   const [logoutAlert, setLogoutAlert] = useState(false)
-
-  const userInitials = getInitials(user?.name ?? "")
 
   return (
     <header className="">
@@ -30,7 +28,8 @@ const Navbar = () => {
         {user ? (
           <div className="relative flex items-center gap-1.5 cursor-pointer">
             <FiUser className="h-7 w-7" />
-            <span className="font-medium">{userInitials}</span>
+            {/* <span className="font-medium"></span> */}
+            <ProfileAvatar />
             {isUserMenuOpen ? <FaAngleUp /> : <FaAngleDown />}
             {isUserMenuOpen && (
               <div className="absolute top-10 right-24 bg-gray-50/50 border border-black rounded-sm p-1 flex flex-col">
