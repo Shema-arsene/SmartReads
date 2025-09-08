@@ -1,6 +1,5 @@
 "use client"
 
-import Link from "next/link"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { useAuth } from "@/app/context/AuthContext"
@@ -31,15 +30,19 @@ const AuthorPublisherHomepage = () => {
     }
   }, [user, loading])
 
+  console.log("User in dashboard:", user?.id)
+
   const fetchBooks = async () => {
     try {
       setLoadingBooks(true)
-      const res = await fetch(
-        `/api/books?userId=${user?._id}&role=${user?.role}`
-      )
+      const res = await fetch(`/api/books`)
       if (!res.ok) throw new Error("Failed to fetch books")
       const data = await res.json()
-      setBooks(data.books)
+      const userBooks = data.books.filter(
+        (book: Book & { uploader: string }) => book.uploader === user?.id
+      )
+      setBooks(userBooks)
+      console.log("Fetched books: ", data.books)
     } catch (error) {
       console.error("Error fetching books: ", error)
     } finally {
