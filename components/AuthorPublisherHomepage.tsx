@@ -56,7 +56,7 @@ const AuthorPublisherHomepage = () => {
   }
 
   return (
-    <section className="sm:py-10 sm:px-6 bg-blue-200">
+    <section className="sm:py-10 sm:px-6">
       {/* Header */}
       <header className="mb-6 flex items-center justify-between px-6 py-10">
         <h1 className="text-xl font-bold">
