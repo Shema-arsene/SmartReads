@@ -8,6 +8,7 @@ import { FaAngleDown } from "react-icons/fa6"
 import { FaAngleUp } from "react-icons/fa6"
 import { useState } from "react"
 import { getInitials } from "@/utils/getInitials"
+import LogoutButton from "@/components/uiComponent/LogoutButton"
 
 const Navbar = () => {
   const pathname = usePathname()
@@ -37,13 +38,13 @@ const Navbar = () => {
                 <Link href="/">LogOut</Link>
               </div>
             )}
+
+            <LogoutButton />
+
             <button
               onClick={() => setLogoutAlert(true)}
               className="ml-4 flex items-center gap-1.5 text-black cursor-pointer"
-            >
-              <FiLogOut />
-              Log out
-            </button>
+            ></button>
           </div>
         ) : (
           <>
