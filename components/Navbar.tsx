@@ -27,8 +27,6 @@ const Navbar = () => {
 
         {user ? (
           <div className="relative flex items-center gap-1.5 cursor-pointer">
-            <FiUser className="h-7 w-7" />
-            {/* <span className="font-medium"></span> */}
             <ProfileAvatar />
             {isUserMenuOpen ? <FaAngleUp /> : <FaAngleDown />}
             {isUserMenuOpen && (
@@ -37,9 +35,7 @@ const Navbar = () => {
                 <Link href="/">LogOut</Link>
               </div>
             )}
-
             <LogoutButton />
-
             <button
               onClick={() => setLogoutAlert(true)}
               className="ml-4 flex items-center gap-1.5 text-black cursor-pointer"
@@ -66,42 +62,41 @@ const Navbar = () => {
       </section>
 
       {/* Bottom section */}
-      <section className="w-full flex items-center justify-center py-4">
+      <section className="w-full flex items-center justify-center py-4 shadow-sm">
         {/* Authors and Publishers Navbar */}
-        {user?.role === "author" ||
-          (user?.role === "publisher" && (
-            <nav className="flex items-center text-lg font-thin">
-              {[
-                { href: "/", label: "Home" },
-                { href: "/about", label: "About SmartReads" },
-                { href: "/publish", label: "Publish a book" },
-              ].reduce((acc, { href, label }, index, arr) => {
+        {(user?.role === "author" || user?.role === "publisher") && (
+          <nav className="flex items-center text-lg font-light">
+            {[
+              { href: "/", label: "Home" },
+              { href: "/about", label: "About SmartReads" },
+              { href: "/publish", label: "Publish a book" },
+            ].reduce((acc, { href, label }, index, arr) => {
+              acc.push(
+                <Link
+                  key={href}
+                  href={href}
+                  className={`${
+                    pathname === href ? "underline" : "text-black"
+                  } hover:underline duration-300`}
+                >
+                  {label}
+                </Link>
+              )
+              if (index < arr.length - 1) {
                 acc.push(
-                  <Link
-                    key={href}
-                    href={href}
-                    className={`${
-                      pathname === href ? "underline" : "text-black"
-                    } hover:underline duration-300`}
-                  >
-                    {label}
-                  </Link>
+                  <span key={`sep-${index}`} className="mx-2 text-gray-600">
+                    |
+                  </span>
                 )
-                if (index < arr.length - 1) {
-                  acc.push(
-                    <span key={`sep-${index}`} className="mx-2 text-gray-600">
-                      |
-                    </span>
-                  )
-                }
-                return acc
-              }, [] as React.ReactNode[])}
-            </nav>
-          ))}
+              }
+              return acc
+            }, [] as React.ReactNode[])}
+          </nav>
+        )}
 
         {/* Readers Navbar */}
         {user?.role === "reader" && (
-          <nav className="flex items-center text-lg font-thin">
+          <nav className="flex items-center text-lg font-light">
             {[
               { href: "/", label: "Home" },
               { href: "/about", label: "About SmartReads" },
