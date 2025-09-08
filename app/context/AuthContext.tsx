@@ -4,7 +4,8 @@ import React, { createContext, useContext, useEffect, useState } from "react"
 
 type User = {
   _id: string
-  name: string
+  firstName: string
+  secondName: string
   email: string
   role: string
 }
@@ -14,7 +15,8 @@ interface AuthContextType {
   loading: boolean
   login: (email: string, password: string) => Promise<void>
   signup: (
-    name: string,
+    firstName: string,
+    secondName: string,
     email: string,
     userRole: string,
     password: string
@@ -60,13 +62,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }
 
   const signup = async (
-    name: string,
+    firstName: string,
+    secondName: string,
     email: string,
     userRole: string,
     password: string
   ) => {
     console.log("🚀 Attempting signup with:", {
-      name,
+      firstName,
+      secondName,
       email,
       password,
       userRole,
@@ -75,7 +79,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const res = await fetch("/api/auth/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, userRole, password }),
+      body: JSON.stringify({
+        firstName,
+        secondName,
+        email,
+        userRole,
+        password,
+      }),
     })
 
     console.log("📡 Response status:", res.status)
