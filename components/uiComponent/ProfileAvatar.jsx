@@ -5,8 +5,10 @@ import { getInitials } from "@/utils/getInitials"
 
 const ProfileAvatar = () => {
   const { user } = useAuth()
-  const userNames = user?.firstName + " " + user?.lastName
-  const userInitials = getInitials(user?.userNames ?? "")
+  const userNames = user?.firstName + " " + user?.secondName
+  const userInitials = getInitials(userNames ?? "")
+
+  console.log("userInitials:", user)
 
   return (
     <>
