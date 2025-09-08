@@ -8,7 +8,8 @@ const SignUpPage = () => {
   const { signup } = useAuth()
 
   const [email, setEmail] = useState("")
-  const [name, setName] = useState("")
+  const [firstName, setFirstName] = useState("")
+  const [secondName, setSecondName] = useState("")
   const [userRole, setUserRole] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
@@ -19,12 +20,19 @@ const SignUpPage = () => {
     e.preventDefault()
     setError("")
 
-    if (!name || !email || !password || !userRole) {
+    if (!firstName || !secondName || !email || !password || !userRole) {
       setError("All fields are required!")
       return
     }
 
-    console.log({ name, email, userRole, password, confirmPassword })
+    console.log({
+      firstName,
+      secondName,
+      email,
+      userRole,
+      password,
+      confirmPassword,
+    })
 
     if (password !== confirmPassword) {
       setError("Passwords don't match!")
@@ -32,7 +40,7 @@ const SignUpPage = () => {
     }
 
     try {
-      await signup(name, email, userRole, password)
+      await signup(firstName, secondName, email, userRole, password)
 
       router.push("/")
     } catch (err: any) {
@@ -48,13 +56,22 @@ const SignUpPage = () => {
           Create Your Account
         </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="text"
-            placeholder="Full Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-700"
-          />
+          <div className="flex flex-col sm:flex-row items-center sm:space-x-4 space-y-4 sm:space-y-0">
+            <input
+              type="text"
+              placeholder="First Name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-700"
+            />
+            <input
+              type="text"
+              placeholder="Second Name"
+              value={secondName}
+              onChange={(e) => setSecondName(e.target.value)}
+              className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-700"
+            />
+          </div>
           <input
             type="email"
             placeholder="Email address"
