@@ -11,27 +11,30 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json()
-    const { name, email, userRole, password } = body
+    const { firstName, secondName, email, userRole, password } = body
 
     console.log("Incoming body", body)
 
     console.log("📝 Registration attempt:", {
-      name,
+      firstName,
+      secondName,
       email,
       hasPassword: !!password,
       role: userRole,
     })
 
     // Validate required fields
-    if (!name || !email || !password || !userRole) {
+    if (!firstName || !secondName || !email || !password || !userRole) {
       console.log("Missing fields:", {
-        name: !!name,
+        firstName: !!firstName,
+        secondName: !!secondName,
         email: !!email,
         password: !!password,
       })
       return new Response(
         JSON.stringify({
-          message: "Missing required fields: name, email, or password",
+          message:
+            "Missing required fields: firstName, secondName, email, or password",
         }),
         {
           status: 400,
@@ -56,7 +59,8 @@ export async function POST(request: NextRequest) {
 
     // Create new user
     const newUser = new User({
-      name,
+      firstName,
+      secondName,
       email,
       role: userRole,
       password,
@@ -82,7 +86,8 @@ export async function POST(request: NextRequest) {
         user: {
           id: savedUser._id,
           email: savedUser.email,
-          name: savedUser.name,
+          firstName: savedUser.firstName,
+          secondName: savedUser.secondName,
           role: savedUser.role,
         },
       }),
