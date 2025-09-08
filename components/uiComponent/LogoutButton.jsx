@@ -20,7 +20,7 @@ const LogoutButton = () => {
   return (
     <div>
       <AlertDialog>
-        <AlertDialogTrigger>
+        <AlertDialogTrigger asChild>
           <Button
             variant="outline"
             className="flex items-center gap-1.5 cursor-pointer"
