@@ -3,7 +3,6 @@
 import Link from "next/link"
 import {
   FaInstagram,
-  FaTwitter,
   FaXTwitter,
   FaFacebook,
   FaPinterest,
@@ -16,9 +15,9 @@ const Footer = () => {
 
   return (
     <footer className="bg-gray-50/50 py-10">
-      <main className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+      <main className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 h-fit">
         {/* About */}
-        <section className="p-5">
+        <section className="p-5 h-fit">
           <h1 className="text-lg font-medium my-3">About</h1>
 
           <p className="text-gray-700 my-3">
@@ -46,7 +45,7 @@ const Footer = () => {
         </section>
 
         {/* Career */}
-        <section className="p-5">
+        <section className="p-5 h-fit">
           <h1 className="text-lg font-medium my-3">Career</h1>
           <ul>
             <li>
@@ -72,7 +71,7 @@ const Footer = () => {
         </section>
 
         {/* Socials */}
-        <section className="p-5">
+        <section className="p-5 h-fit">
           <h1 className="text-lg font-medium my-3">Social</h1>
           <ul>
             <li className="flex items-center gap-2 hover:underline duration-200 cursor-pointer">
@@ -103,7 +102,7 @@ const Footer = () => {
         </section>
 
         {/* Donate */}
-        <section className="p-5">
+        <section className="p-5 h-fit">
           <h1 className="text-lg font-medium my-3">Donate</h1>
 
           <p className="text-gray-700 my-3">
@@ -122,7 +121,7 @@ const Footer = () => {
         </section>
 
         {/* Our Apps */}
-        <section className="p-5">
+        <section className="p-5 h-fit">
           <h1 className="text-lg font-medium my-3">Get Our Free Apps</h1>
 
           <div className="space-y-2">
@@ -145,7 +144,7 @@ const Footer = () => {
         </section>
       </main>
 
-      <aside className="mt-5 flex flex-col sm:flex-row items-start sm:items-center justify-between px-10">
+      <aside className="mt-5 h-fit flex flex-col sm:flex-row items-start sm:items-center justify-between px-10">
         <div className="flex items-center text-lg font-thin">
           {[
             { href: "/audio-books", label: "Audio-Books" },
