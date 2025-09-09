@@ -40,7 +40,6 @@ const AuthorPublisherHomepage = () => {
         (book: Book & { uploader: string }) => book.uploader === user?.id
       )
       setBooks(userBooks)
-      console.log("Fetched books: ", data.books)
     } catch (error) {
       console.error("Error fetching books: ", error)
     } finally {
@@ -59,13 +58,13 @@ const AuthorPublisherHomepage = () => {
   return (
     <section className="sm:py-10 sm:px-6">
       {/* Header */}
-      <header className="mb-6 flex items-center justify-between px-6 py-10">
+      <header className="flex items-center justify-between px-6 pb-10">
         <h1 className="text-xl font-bold">
           {user?.role === "author" ? "Author" : "Publisher"} Dashboard
         </h1>
       </header>
 
-      <p className="mb-8">
+      <p className="">
         Welcome to the dashboard, here you can manage your books, view read
         analytics, and more.
       </p>
@@ -78,7 +77,7 @@ const AuthorPublisherHomepage = () => {
       ) : books.length === 0 ? (
         <p>No books published yet.</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-5 md:p-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-5">
           {books.map((book) => (
             <div
               key={book._id}
