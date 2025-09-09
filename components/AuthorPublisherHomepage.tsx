@@ -30,8 +30,6 @@ const AuthorPublisherHomepage = () => {
     }
   }, [user, loading])
 
-  console.log("User in dashboard:", user?.id)
-
   const fetchBooks = async () => {
     try {
       setLoadingBooks(true)
