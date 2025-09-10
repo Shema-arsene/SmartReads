@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { useAuth } from "@/app/context/AuthContext"
+import Link from "next/link"
 
 interface Book {
   _id: string
@@ -56,12 +57,18 @@ const AuthorPublisherHomepage = () => {
   }
 
   return (
-    <section className="sm:py-10 sm:px-6">
+    <section className="p-5">
       {/* Header */}
-      <header className="flex items-center justify-between px-6 pb-10">
+      <header className="flex items-center justify-between pb-10">
         <h1 className="text-xl font-bold">
           {user?.role === "author" ? "Author" : "Publisher"} Dashboard
         </h1>
+        <Link
+          href="/book-insights"
+          className="text-sm text-black hover:underline"
+        >
+          View Insights
+        </Link>
       </header>
 
       <p className="">
