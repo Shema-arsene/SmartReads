@@ -8,10 +8,10 @@ import { FaApple, FaGooglePlay } from "react-icons/fa6"
 
 const DefaultHomepage = () => {
   return (
-    <div className="w-full min-h-screen"> 
+    <main className="w-full">
       <div className="flex flex-col gap-[32px] items-center sm:items-start">
         <Hero />
-        
+
         <section className="bg-[#c8553dff] w-full p-5 sm:p-10">
           <div className="text-white flex flex-col items-center justify-center">
             <h1 className="text-3xl font-bold">
@@ -22,16 +22,16 @@ const DefaultHomepage = () => {
               are the ones
               <span className="bg-[#f28f3bff] text-black mx-2">you love</span>
             </h1>
-            
+
             <p>Thousands of new titles every month.</p>
             <p>One convenient subscription.</p>
           </div>
-          
+
           <div className="flex items-center overflow-x-auto"></div>
         </section>
-        
+
         <section className="p-10"></section>
-        
+
         <section className="p-10 w-full flex flex-col md:flex-row items-center justify-center max-md:gap-7">
           <aside className="flex-1 md:p-10 flex flex-col items-center justify-center gap-5">
             <div className="flex flex-col items-center justify-center">
@@ -45,18 +45,20 @@ const DefaultHomepage = () => {
                 how you want.
               </h1>
             </div>
-            
+
             <p>Enjoy your library everywhere you go — even offline.</p>
-            
+
             <div className="flex flex-col md:flex-row items-center justify-center gap-5">
               <div className="w-[180px] h-[50px] flex items-center gap-2 bg-black text-white p-2 rounded-lg">
                 <FaApple className="w-[35px] h-[35px]" />
                 <div className="-space-y-1.5">
-                  <p className="text-xs font-medium uppercase">Download on the</p>
+                  <p className="text-xs font-medium uppercase">
+                    Download on the
+                  </p>
                   <h3 className="text-xl">App Store</h3>
                 </div>
               </div>
-              
+
               <div className="w-[180px] h-[50px] flex items-center gap-2 bg-black text-white p-2 rounded-lg">
                 <FaGooglePlay className="w-[35px] h-[35px]" />
                 <div className="-space-y-1.5">
@@ -77,7 +79,7 @@ const DefaultHomepage = () => {
             />
           </aside>
         </section>
-        
+
         <section className="bg-[#ffd5c2ff] w-full flex flex-col items-center justify-center gap-5 p-10">
           <h1 className="text-5xl font-thin">Still curious?</h1>
           <p>Let's get to know each other better.</p>
@@ -93,7 +95,7 @@ const DefaultHomepage = () => {
           </Link>
         </section>
       </div>
-    </div>
+    </main>
   )
 }
 
