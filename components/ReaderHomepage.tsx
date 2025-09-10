@@ -15,11 +15,26 @@ type Book = {
   description: string
   bookFile: string
 }
+type Publisher = {
+  _id: string
+  name: string
+  firstName: string
+  secondName: string
+  bio: string
+}
+
+type Author = {
+  _id: string
+  name: string
+  firstName: string
+  secondName: string
+  bio: string
+}
 
 const ReaderHomepage = () => {
   const [books, setBooks] = useState<Book[]>([])
-  const [authors, setAuthors] = useState<Book[]>([])
-  const [publishers, setPublishers] = useState<Book[]>([])
+  const [authors, setAuthors] = useState<Author[]>([])
+  const [publishers, setPublishers] = useState<Publisher[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
 
