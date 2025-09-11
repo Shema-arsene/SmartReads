@@ -9,13 +9,14 @@ export const registerUser = async (body: any) => {
   await dbConnect()
 
   try {
-    const { name, email, password } = body
+    const { firstName, secondName, email, password } = body
 
     // Validate required fields
-    if (!name || !email || !password) {
+    if (!firstName || !secondName || !email || !password) {
       return new Response(
         JSON.stringify({
-          message: "Missing required fields: name, email, or password",
+          message:
+            "Missing required fields: firstName, secondName, email, or password",
         }),
         {
           status: 400,
@@ -43,7 +44,8 @@ export const registerUser = async (body: any) => {
 
     // Create new user
     const newUser = new User({
-      name,
+      firstName,
+      secondName,
       email,
       password: hashedPassword,
     })
@@ -56,6 +58,7 @@ export const registerUser = async (body: any) => {
       expiresIn: "7d",
     })
 
+    // In registerUser
     return new Response(
       JSON.stringify({
         message: "User registered successfully",
@@ -63,13 +66,14 @@ export const registerUser = async (body: any) => {
         user: {
           id: savedUser._id,
           email: savedUser.email,
-          name: savedUser.name,
+          firstName: savedUser.firstName,
+          secondName: savedUser.secondName,
+          role: savedUser.role,
+          bio: savedUser.bio,
+          profileImage: savedUser.profileImage,
         },
       }),
-      {
-        status: 201,
-        headers: { "Content-Type": "application/json" },
-      }
+      { status: 201, headers: { "Content-Type": "application/json" } }
     )
   } catch (error: any) {
     console.error("Registration error:", error)
@@ -142,20 +146,22 @@ export const loginUser = async (body: any) => {
     // Generate JWT token
     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "7d" })
 
+    // In loginUser
     return new Response(
       JSON.stringify({
         message: "Login successful",
         token,
         user: {
           id: user._id,
-          name: user.name,
           email: user.email,
+          firstName: user.firstName,
+          secondName: user.secondName,
+          role: user.role,
+          bio: user.bio,
+          profileImage: user.profileImage,
         },
       }),
-      {
-        status: 200,
-        headers: { "Content-Type": "application/json" },
-      }
+      { status: 200, headers: { "Content-Type": "application/json" } }
     )
   } catch (error) {
     console.error("Login error:", error)

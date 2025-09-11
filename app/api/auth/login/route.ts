@@ -1,3 +1,4 @@
+// app/api/auth/login/route.ts
 import { NextRequest } from "next/server"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
@@ -10,10 +11,7 @@ export async function POST(request: NextRequest) {
   await dbConnect()
 
   try {
-    const body = await request.json()
-    const { email, password } = body
-
-    console.log("Login attempt:", { email })
+    const { email, password } = await request.json()
 
     // Validate input
     if (!email || !password) {
@@ -23,20 +21,18 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Check if user exists
-    const user = await User.findOne({ email })
+    // Find user (ensure password is included in query)
+    const user = await User.findOne({ email }).select("+password")
     if (!user) {
-      console.log("User not found:", email)
       return new Response(
         JSON.stringify({ message: "Invalid email or password." }),
         { status: 401, headers: { "Content-Type": "application/json" } }
       )
     }
 
-    // Check password
+    // Validate password
     const isMatch = await bcrypt.compare(password, user.password)
     if (!isMatch) {
-      console.log("Invalid password for:", email)
       return new Response(
         JSON.stringify({ message: "Invalid email or password." }),
         { status: 401, headers: { "Content-Type": "application/json" } }
@@ -44,37 +40,36 @@ export async function POST(request: NextRequest) {
     }
 
     // Generate JWT token
-    const token = jwt.sign({ id: user._id, role: user.role }, JWT_SECRET, {
-      expiresIn: "30d",
-    })
+    const token = jwt.sign(
+      { id: user._id.toString(), role: user.role },
+      JWT_SECRET,
+      { expiresIn: "30d" }
+    )
 
-    console.log("Login successful:", user._id)
+    console.log("✅ Login successful for:", email)
 
+    // Return safe user object
     return new Response(
       JSON.stringify({
         message: "Login successful",
         token,
         user: {
-          id: user._id,
-          name: user.name,
+          id: user._id.toString(),
+          firstName: user.firstName,
+          secondName: user.secondName,
           email: user.email,
+          bio: user.bio,
+          profileImage: user.profileImage,
           role: user.role,
         },
       }),
-      {
-        status: 200,
-        headers: { "Content-Type": "application/json" },
-      }
+      { status: 200, headers: { "Content-Type": "application/json" } }
     )
-  } catch (error: any) {
+  } catch (error) {
     console.error("Login error:", error)
-
     return new Response(
       JSON.stringify({ message: "Server error during login." }),
-      {
-        status: 500,
-        headers: { "Content-Type": "application/json" },
-      }
+      { status: 500, headers: { "Content-Type": "application/json" } }
     )
   }
 }

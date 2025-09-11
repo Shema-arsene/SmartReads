@@ -58,7 +58,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const data = await res.json()
     setUser(data.user)
     setToken(data.token)
-    localStorage.setItem("user", JSON.stringify(data.user, data.token))
+    localStorage.setItem("user", JSON.stringify(data.user))
     localStorage.setItem("token", data.token)
   }
 
