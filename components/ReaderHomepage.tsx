@@ -98,7 +98,7 @@ const ReaderHomepage = () => {
   return (
     <main className="">
       {/* Hero Section */}
-      <section className="relative h-[80vh] flex flex-col items-center justify-center text-center px-6">
+      <section className="relative max-sm:h-[90vh] h-[80vh] sm:max-h-[600px] flex flex-col items-center justify-center text-center px-6">
         {/* Background Image */}
         <Image
           src="https://images.pexels.com/photos/1809340/pexels-photo-1809340.jpeg"
@@ -112,21 +112,36 @@ const ReaderHomepage = () => {
         <div className="absolute inset-0 bg-black/40 -z-10" />
 
         {/* Hero Content */}
-        <h1 className="text-4xl md:text-5xl font-bold text-white">
-          Read anywhere. Anytime
-        </h1>
-        <p className="text-lg md:text-xl text-white max-w-2xl mt-8">
-          Discover the best reads on various topics of interest.
-        </p>
-        <p className="text-lg text-white">Cancel anytime.</p>
+        <div className="flex flex-col md:flex-row items-center py-10 gap-10 md:gap-5 max-w-5xl">
+          <aside className="md:flex-1">
+            <Image
+              src="https://images.pexels.com/photos/1741230/pexels-photo-1741230.jpeg"
+              alt="Hero image"
+              width={400}
+              height={350}
+              className="rounded-sm shadow-lg"
+            />
+          </aside>
+          <aside className="md:flex-1 flex flex-col items-center">
+            <h1 className="text-4xl md:text-5xl font-bold text-white leading-snug">
+              Read anywhere. Anytime
+            </h1>
+            <p className="text-lg md:text-xl text-white max-w-2xl mt-8">
+              Discover the best reads on various topics of interest.
+            </p>
+            <p className="text-lg text-gray-400 font-medium">
+              Cancel anytime!.
+            </p>
 
-        <Link
-          href="/checkout"
-          className="mt-6 border border-gray-200 bg-white text-black font-medium px-6 py-3
-                     rounded-lg hover:bg-gray-100 hover:text-gray-900 duration-300"
-        >
-          Start your free 30 days
-        </Link>
+            <Link
+              href="/checkout"
+              className="mt-6 bg-white text-black font-medium px-6 py-3
+                     rounded-lg hover:bg-gray-300 hover:text-gray-900 duration-300"
+            >
+              Start your free 30 days
+            </Link>
+          </aside>
+        </div>
       </section>
 
       {/* Best Sellers */}
