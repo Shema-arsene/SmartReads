@@ -3,12 +3,11 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useAuth } from "@/app/context/AuthContext"
-import { FiUser } from "react-icons/fi"
-import { FaAngleDown } from "react-icons/fa6"
-import { FaAngleUp } from "react-icons/fa6"
 import { useState } from "react"
 import LogoutButton from "@/components/uiComponent/LogoutButton"
-import ProfileAvatar from "@/components/uiComponent/ProfileAvatar"
+import UserDropdown from "./uiComponent/UserDropdown"
+import { FiLogOut } from "react-icons/fi"
+import { LogIn } from "lucide-react"
 
 const Navbar = () => {
   const pathname = usePathname()
@@ -26,35 +25,34 @@ const Navbar = () => {
         </Link>
 
         {user ? (
-          <div className="relative flex items-center gap-1.5 cursor-pointer">
-            <ProfileAvatar />
-            {isUserMenuOpen ? <FaAngleUp /> : <FaAngleDown />}
-            {isUserMenuOpen && (
-              <div className="absolute top-10 right-24 bg-gray-50/50 border border-black rounded-sm p-1 flex flex-col">
-                <Link href="/profile">Profile</Link>
-                <Link href="/">LogOut</Link>
-              </div>
-            )}
+          <div className="relative flex items-center gap-3 cursor-pointer">
+            <Link href="/" className="font-light hover:underline duration-200">
+              Become an Author?
+            </Link>
+            <UserDropdown />
             <LogoutButton />
-            <button
-              onClick={() => setLogoutAlert(true)}
-              className="ml-4 flex items-center gap-1.5 text-black cursor-pointer"
-            ></button>
           </div>
         ) : (
           <>
             <div className="flex items-center space-x-3">
               <Link
                 href="/checkout"
-                className="bg-black text-white font-medium px-4 py-2 rounded-lg hover:opacity-70 duration-300"
+                className="font-medium  hover:underline duration-200"
               >
                 Read free for 30 days
               </Link>
               <Link
+                href="/"
+                className="font-medium hover:underline duration-200"
+              >
+                Become an Author?
+              </Link>
+              <Link
                 href="/signin"
-                className="font-medium border border-black px-3 py-1.5 rounded-lg hover:outline-1 hover:outline-black"
+                className="flex items-center gap-1 font-medium border border-black px-3 py-1.5 rounded-sm hover:outline-1 hover:outline-black"
               >
                 Sign In
+                <LogIn />
               </Link>
             </div>
           </>
@@ -128,34 +126,6 @@ const Navbar = () => {
           </nav>
         )}
       </section>
-
-      {/* Logout overlay */}
-      {logoutAlert && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-          <div className="max-w-md p-10 flex flex-col items-center justify-center bg-white rounded-lg shadow-lg">
-            <h1 className="font-medium text-xl mb-5">
-              Are you sure you want to log out?
-            </h1>
-            <div className="w-full flex items-center justify-center gap-4 mt-4">
-              <button
-                className="border-2 border-black bg-gray-300 text-black px-4 py-2 rounded-lg font-medium hover:opacity-70 cursor-pointer"
-                onClick={() => setLogoutAlert(false)}
-              >
-                Cancel
-              </button>
-              <button
-                className="border-2 border-black bg-red-500 text-white px-4 py-2 rounded-lg font-medium hover:opacity-70 cursor-pointer"
-                onClick={() => {
-                  logout()
-                  setLogoutAlert(false)
-                }}
-              >
-                Logout
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </header>
   )
 }
