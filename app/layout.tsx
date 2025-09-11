@@ -24,10 +24,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="h-full">
-      <body
-        className={`${lato.variable} antialiased font-sans min-h-screen flex flex-col`}
-      >
+    <html lang="en">
+      <body className={`${lato.variable} antialiased font-sans`}>
         <AuthProvider>
           <Navbar />
           {children}
