@@ -21,7 +21,7 @@ const Hero = () => {
           E-books, audiobooks, and so much more
         </span>
         <Link
-          href="/"
+          href="/checkout"
           className="block w-fit border border-black bg-[#f28f3bff] text-white font-medium px-4 py-2 rounded-lg hover:opacity-70 duration-300"
         >
           Read free for 30 days
