@@ -101,7 +101,6 @@ const AuthorPublisherHomepage = () => {
               <div className="flex flex-col gap-1">
                 <p>📖 Reads: {book.readCount}</p>
                 <p>⭐ Favorites: {book.favoritesCount}</p>
-                <p>⬇️ Downloads: {book.downloadCount}</p>
               </div>
             </div>
           ))}
