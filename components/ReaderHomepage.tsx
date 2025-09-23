@@ -3,6 +3,7 @@ import Link from "next/link"
 import React, { useEffect, useState } from "react"
 import BooksComponent from "./BooksComponent"
 import RecommendedCategories from "./RecommendedCategories"
+import BookSlider from "./BooksSlider"
 
 type Book = {
   _id: string
@@ -143,6 +144,9 @@ const ReaderHomepage = () => {
           </aside>
         </div>
       </section>
+
+      {/* Hero Slider */}
+      <BookSlider />
 
       {/* Best Sellers */}
       <section className="p-5 max-w-5xl mx-auto">
