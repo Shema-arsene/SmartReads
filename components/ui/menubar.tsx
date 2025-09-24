@@ -71,7 +71,7 @@ const MenubarSubTrigger = React.forwardRef<
 >(({ className, inset, children, ...props }, ref) => (
   <MenubarPrimitive.SubTrigger
     ref={ref}
-    className={cn("flex items-center px-1", inset && "pl-8", className)}
+    className={cn("flex items-center", inset && "pl-8", className)}
     {...props}
   >
     {children}

@@ -23,7 +23,9 @@ const UserDropdown = () => {
     <Menubar>
       <MenubarMenu>
         <MenubarTrigger>
-          <ProfileAvatar />
+          <div className="mr-1.5">
+            <ProfileAvatar />
+          </div>
         </MenubarTrigger>
         <MenubarSeparator />
         <MenubarContent>
