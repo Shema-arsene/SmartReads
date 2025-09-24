@@ -27,12 +27,24 @@ const Navbar = () => {
         {user ? (
           <div className="relative flex items-center gap-3 cursor-pointer">
             {user.role === "reader" && (
-              <Link
-                href="/"
-                className="font-light hover:underline duration-200"
-              >
-                Become an Author?
-              </Link>
+              <ul className="flex items-center gap-3">
+                <li>
+                  <Link
+                    href="/checkout"
+                    className="font-light hover:underline duration-200"
+                  >
+                    Start your free 30 days
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/"
+                    className="font-light hover:underline duration-200"
+                  >
+                    Become an Author?
+                  </Link>
+                </li>
+              </ul>
             )}
             <UserDropdown />
             <LogoutButton />
