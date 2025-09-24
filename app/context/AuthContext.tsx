@@ -8,7 +8,10 @@ type User = {
   firstName: string
   secondName: string
   email: string
+  password: string
   role: string
+  profileImage: string
+  bio: string
 }
 
 interface AuthContextType {
