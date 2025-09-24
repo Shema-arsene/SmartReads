@@ -5,34 +5,33 @@ import { useState, useEffect } from "react"
 
 const slides = [
   {
-    image:
-      "https://images.pexels.com/photos/33278756/pexels-photo-33278756.jpeg",
-    title: "Discover the Heart of",
-    subtitle: "Africa - Rwanda",
+    image: "https://images.pexels.com/photos/1290141/pexels-photo-1290141.jpeg",
+    title: "Read Anywhere",
+    subtitle: "Anytime",
     description:
-      "From studying in the Land of a Thousand Hills to exploring Volcanoes National Park, we make your Rwandan adventure unforgettable with comprehensive travel solutions.",
+      "Whether you're on a bus, at a café, or winding down at home, SmartReads gives you instant access to your favorite stories and knowledge without limits.",
   },
   {
     image:
       "https://images.pexels.com/photos/10544959/pexels-photo-10544959.jpeg",
-    title: "Experience Gorilla",
-    subtitle: "Trekking Adventures",
+    title: "Discover New",
+    subtitle: "Voices & Authors",
     description:
-      "Get up close with mountain gorillas in their natural habitat at Volcanoes National Park, one of Rwanda's most incredible wildlife experiences.",
+      "Dive into books from emerging writers and established authors. Explore fresh perspectives, unique voices, and stories that stay with you.",
   },
   {
     image: "https://images.pexels.com/photos/9174680/pexels-photo-9174680.jpeg",
-    title: "Relax at Beautiful",
-    subtitle: "Lake Kivu",
+    title: "Build Your",
+    subtitle: "Personal Library",
     description:
-      "Unwind at one of Africa's great lakes with stunning beaches, water sports, and breathtaking sunsets in the heart of Rwanda.",
+      "Save favorites, create collections, and craft your own library that grows with you — a reading space designed to fit your journey.",
   },
   {
     image: "https://images.pexels.com/photos/9560066/pexels-photo-9560066.jpeg",
-    title: "Explore Modern",
-    subtitle: "Kigali City",
+    title: "Join a Growing",
+    subtitle: "Reader Community",
     description:
-      "Discover Rwanda's vibrant capital with its clean streets, cultural sites, and growing reputation as Africa's Singapore.",
+      "Connect with fellow readers, share insights, and be part of a vibrant community that celebrates stories and ideas together.",
   },
 ]
 
