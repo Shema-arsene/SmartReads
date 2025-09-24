@@ -1,6 +1,6 @@
 "use client"
 
-import { Globe, MapPin, Star } from "lucide-react"
+import { BookOpen, Gift, Feather } from "lucide-react"
 import { useState, useEffect } from "react"
 
 const slides = [
@@ -94,42 +94,60 @@ const BookSlider = () => {
         <div className="max-w-5xl mx-auto">
           <h1 className="text-5xl md:text-7xl font-bold mb-12 text-balance leading-tight">
             {slides[currentSlide].title}
-            <span className="text-[#a5be00] block mt-4">
+            <span className="text-[#a5be00] block">
               {slides[currentSlide].subtitle}
             </span>
           </h1>
 
-          <p className="text-xl md:text-2xl mb-16 text-pretty max-w-3xl mx-auto leading-relaxed opacity-95">
+          <p className="text-xl md:text-2xl mb-10 text-pretty max-w-3xl mx-auto leading-relaxed opacity-95">
             {slides[currentSlide].description}
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-4xl mx-auto mb-8">
+          {/* CTA */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-4xl mx-auto">
+            {/* Start Free Trial */}
             <div className="text-center">
               <div className="flex items-center justify-center mb-4">
                 <div className="bg-[#679436]/20 p-4 rounded-full mr-4 backdrop-blur-sm">
-                  <Globe className="h-8 w-8 text-[#a5be00]" />
+                  <Gift className="h-8 w-8 text-[#a5be00]" />
                 </div>
-                <span className="text-4xl font-bold">15+</span>
+                <span className="text-2xl font-semibold whitespace-nowrap">
+                  Start Free Trial
+                </span>
               </div>
-              <p className="text-lg opacity-90">Years in Rwanda Tourism</p>
+              <p className="text-lg opacity-90">
+                Enjoy 30 days of unlimited reading at no cost.
+              </p>
             </div>
+
+            {/* Become an Author */}
             <div className="text-center">
               <div className="flex items-center justify-center mb-4">
                 <div className="bg-[#679436]/20 p-4 rounded-full mr-4 backdrop-blur-sm">
-                  <MapPin className="h-8 w-8 text-[#a5be00]" />
+                  <Feather className="h-8 w-8 text-[#a5be00]" />
                 </div>
-                <span className="text-4xl font-bold">5K+</span>
+                <span className="text-2xl font-semibold whitespace-nowrap">
+                  Become an Author
+                </span>
               </div>
-              <p className="text-lg opacity-90">Visitors to Rwanda</p>
+              <p className="text-lg opacity-90">
+                Share your stories with a growing community of readers.
+              </p>
             </div>
+
+            {/* Start Reading */}
             <div className="text-center">
               <div className="flex items-center justify-center mb-4">
                 <div className="bg-[#679436]/20 p-4 rounded-full mr-4 backdrop-blur-sm">
-                  <Star className="h-8 w-8 text-[#a5be00]" />
+                  <BookOpen className="h-8 w-8 text-[#a5be00]" />
                 </div>
-                <span className="text-4xl font-bold">4.9</span>
+                <span className="text-2xl font-semibold whitespace-nowrap">
+                  Start Reading
+                </span>
               </div>
-              <p className="text-lg opacity-90">Customer Rating</p>
+              <p className="text-lg opacity-90">
+                Dive into thousands of books and discover your next favorite.
+              </p>
             </div>
           </div>
         </div>
