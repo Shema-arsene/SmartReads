@@ -5,29 +5,28 @@ import { useState, useEffect } from "react"
 
 const slides = [
   {
-    image: "https://images.pexels.com/photos/1290141/pexels-photo-1290141.jpeg",
+    image: "https://images.pexels.com/photos/1809340/pexels-photo-1809340.jpeg",
     title: "Read Anywhere",
     subtitle: "Anytime",
     description:
       "Whether you're on a bus, at a café, or winding down at home, SmartReads gives you instant access to your favorite stories and knowledge without limits.",
   },
   {
-    image:
-      "https://images.pexels.com/photos/10544959/pexels-photo-10544959.jpeg",
+    image: "https://images.pexels.com/photos/1741230/pexels-photo-1741230.jpeg",
     title: "Discover New",
     subtitle: "Voices & Authors",
     description:
       "Dive into books from emerging writers and established authors. Explore fresh perspectives, unique voices, and stories that stay with you.",
   },
   {
-    image: "https://images.pexels.com/photos/9174680/pexels-photo-9174680.jpeg",
+    image: "https://images.pexels.com/photos/1370298/pexels-photo-1370298.jpeg",
     title: "Build Your",
     subtitle: "Personal Library",
     description:
       "Save favorites, create collections, and craft your own library that grows with you — a reading space designed to fit your journey.",
   },
   {
-    image: "https://images.pexels.com/photos/9560066/pexels-photo-9560066.jpeg",
+    image: "https://images.pexels.com/photos/256431/pexels-photo-256431.jpeg",
     title: "Join a Growing",
     subtitle: "Reader Community",
     description:
