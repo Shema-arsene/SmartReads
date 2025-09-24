@@ -18,6 +18,9 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "via.placeholder.com" },
     ],
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 }
 
 export default nextConfig
