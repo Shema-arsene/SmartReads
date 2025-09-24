@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useRef } from "react"
+import Image from "next/image"
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa"
 
 const RecommendedCategories = () => {
@@ -93,10 +94,11 @@ const RecommendedCategories = () => {
             className="flex-shrink-0 w-44 border rounded-lg overflow-hidden hover:shadow-lg transition"
           >
             <div className="h-28 w-full relative">
-              <img
+              <Image
                 src={category.imageUrl}
                 alt={category.name}
-                // fill
+                width={200}
+                height={120}
                 className="object-cover"
               />
             </div>
