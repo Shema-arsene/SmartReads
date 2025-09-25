@@ -6,7 +6,8 @@ import { useRouter } from "next/navigation"
 type User = {
   _id: string
   id: string
-  name: string
+  firstName: string
+  secondName: string
   email: string
   role: string
 }
@@ -36,6 +37,8 @@ export const bookCategories = [
 
 const PublishBookForm = ({ user }: PublishBookFormProps) => {
   const router = useRouter()
+
+  console.log("Logged in User: ", user)
 
   const [formData, setFormData] = useState({
     title: "",
