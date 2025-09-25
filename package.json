@@ -10,8 +10,6 @@
   },
   "dependencies": {
     "@cyntler/react-doc-viewer": "^1.17.0",
-    "@paypal/checkout-server-sdk": "^1.0.3",
-    "@paypal/react-paypal-js": "^8.8.3",
     "@radix-ui/react-alert-dialog": "^1.1.15",
     "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-menubar": "^1.1.16",
@@ -45,7 +43,6 @@
     "@types/formidable": "^3.4.5",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^20",
-    "@types/paypal__checkout-server-sdk": "^1.0.8",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
