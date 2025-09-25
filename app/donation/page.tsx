@@ -1,9 +1,11 @@
-import DonationForm from "@/components/DonationForm"
-
-export default function DonatePage() {
+const DonatePage = () => {
   return (
-    <main className="min-h-screen flex items-center justify-center p-6">
-      <DonationForm />
+    <main className="min-h-screen flex items-center justify-center">
+      <p className="text-gray-600 text-lg">
+        Donation functionality is currently unavailable.
+      </p>
     </main>
   )
 }
+
+export default DonatePage
