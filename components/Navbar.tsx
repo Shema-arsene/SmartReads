@@ -142,6 +142,39 @@ const Navbar = () => {
             }, [] as React.ReactNode[])}
           </nav>
         )}
+
+        {!user && (
+          <nav className="flex items-center text-lg font-light">
+            {[
+              { href: "/", label: "Home" },
+              { href: "/about", label: "About SmartReads" },
+              { href: "/e-books", label: "E-Books" },
+              { href: "/joinSmartReads", label: "Join our Team" },
+              { href: "/becomeAnAuthor", label: "Become an Author" },
+              { href: "/Checkout", label: "Read free for 30 days" },
+            ].reduce((acc, { href, label }, index, arr) => {
+              acc.push(
+                <Link
+                  key={href}
+                  href={href}
+                  className={`${
+                    pathname === href ? "underline" : "text-black"
+                  } hover:underline duration-300`}
+                >
+                  {label}
+                </Link>
+              )
+              if (index < arr.length - 1) {
+                acc.push(
+                  <span key={`sep-${index}`} className="mx-2 text-gray-600">
+                    |
+                  </span>
+                )
+              }
+              return acc
+            }, [] as React.ReactNode[])}
+          </nav>
+        )}
       </section>
     </header>
   )
