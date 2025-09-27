@@ -216,6 +216,7 @@ const Navbar = () => {
                 className={`${
                   pathname === link.href ? "underline font-normal" : ""
                 } hover:underline duration-300`}
+                onClick={() => setUserMenuOpen(false)}
               >
                 {link.label}
               </Link>
@@ -243,6 +244,7 @@ const Navbar = () => {
                 className={`${
                   pathname === link.href ? "underline font-normal" : ""
                 } hover:underline duration-300`}
+                onClick={() => setUserMenuOpen(false)}
               >
                 {link.label}
               </Link>
@@ -270,6 +272,7 @@ const Navbar = () => {
                 className={`${
                   pathname === link.href ? "underline font-normal" : ""
                 } hover:underline duration-300`}
+                onClick={() => setUserMenuOpen(false)}
               >
                 {link.label}
               </Link>
@@ -277,6 +280,7 @@ const Navbar = () => {
             <Link
               href="/signin"
               className="flex items-center gap-1 mx-auto my-5 font-medium border border-black px-3 py-1.5 rounded-sm hover:outline-1 hover:outline-black"
+              onClick={() => setUserMenuOpen(false)}
             >
               Sign In
               <LogIn />
