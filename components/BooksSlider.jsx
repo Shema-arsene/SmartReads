@@ -92,7 +92,7 @@ const BookSlider = () => {
       {/* Content */}
       <div className="relative z-10 container mx-auto px-8 text-center text-white">
         <div className="max-w-5xl mx-auto">
-          <h1 className="text-5xl md:text-7xl font-bold mb-12 text-balance leading-tight">
+          <h1 className="text-2xl md:text-5xl font-semibold mb-12 text-balance leading-tight">
             {slides[currentSlide].title}
             <span className="text-[#a5be00] block">
               {slides[currentSlide].subtitle}
@@ -104,48 +104,48 @@ const BookSlider = () => {
           </p>
 
           {/* CTA */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-4xl mx-auto">
+          <div className="grid grid-cols-3 gap-12 max-w-4xl mx-auto">
             {/* Start Free Trial */}
             <div className="text-center">
-              <div className="flex items-center justify-center mb-4">
-                <div className="bg-[#679436]/20 p-4 rounded-full mr-4 backdrop-blur-sm">
-                  <Gift className="h-8 w-8 text-[#a5be00]" />
+              <div className="flex flex-col items-center justify-center mb-4">
+                <div className="bg-[#679436]/20 p-2 md:p-4 mb-2 rounded-full md:mr-4 backdrop-blur-sm">
+                  <Gift className="h-4 w-4 md:h-8 md:w-8 text-[#a5be00]" />
                 </div>
-                <span className="text-2xl font-semibold whitespace-nowrap">
+                <span className="text-sm md:text-2xl font-semibold">
                   Start Free Trial
                 </span>
               </div>
-              <p className="text-lg opacity-90">
+              <p className="text-xs md:text-lg opacity-90">
                 Enjoy 30 days of unlimited reading at no cost.
               </p>
             </div>
 
             {/* Become an Author */}
             <div className="text-center">
-              <div className="flex items-center justify-center mb-4">
-                <div className="bg-[#679436]/20 p-4 rounded-full mr-4 backdrop-blur-sm">
-                  <Feather className="h-8 w-8 text-[#a5be00]" />
+              <div className="flex flex-col items-center justify-center mb-4">
+                <div className="bg-[#679436]/20 p-2 md:p-4 mb-2 rounded-full md:mr-4 backdrop-blur-sm">
+                  <Feather className="h-4 w-4 md:h-8 md:w-8 text-[#a5be00]" />
                 </div>
-                <span className="text-2xl font-semibold whitespace-nowrap">
+                <span className="text-sm md:text-2xl font-semibold">
                   Become an Author
                 </span>
               </div>
-              <p className="text-lg opacity-90">
+              <p className="text-xs md:text-lg opacity-90">
                 Share your stories with a growing community of readers.
               </p>
             </div>
 
             {/* Start Reading */}
             <div className="text-center">
-              <div className="flex items-center justify-center mb-4">
-                <div className="bg-[#679436]/20 p-4 rounded-full mr-4 backdrop-blur-sm">
-                  <BookOpen className="h-8 w-8 text-[#a5be00]" />
+              <div className="flex flex-col items-center justify-center mb-4">
+                <div className="bg-[#679436]/20 p-2 md:p-4 mb-2 rounded-full md:mr-4 backdrop-blur-sm">
+                  <BookOpen className="h-4 w-4 md:h-8 md:w-8 text-[#a5be00]" />
                 </div>
-                <span className="text-2xl font-semibold whitespace-nowrap">
+                <span className="text-sm md:text-2xl font-semibold">
                   Start Reading
                 </span>
               </div>
-              <p className="text-lg opacity-90">
+              <p className="text-xs md:text-lg opacity-90">
                 Dive into thousands of books and discover your next favorite.
               </p>
             </div>
