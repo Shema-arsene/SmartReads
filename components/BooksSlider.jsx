@@ -92,7 +92,7 @@ const BookSlider = () => {
       {/* Content */}
       <div className="relative z-10 container mx-auto px-8 text-center text-white">
         <div className="max-w-5xl mx-auto">
-          <h1 className="text-2xl md:text-5xl font-semibold mb-12 text-balance leading-tight">
+          <h1 className="text-3xl md:text-5xl font-semibold mb-12 text-balance leading-tight">
             {slides[currentSlide].title}
             <span className="text-[#a5be00] block">
               {slides[currentSlide].subtitle}
