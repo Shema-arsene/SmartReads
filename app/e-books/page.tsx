@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useMemo } from "react"
 import { bookCategories } from "@/components/PublishBookForm"
 import BooksSkeleton from "@/components/BooksSkeleton"
 
@@ -18,9 +18,9 @@ type Book = {
 
 export default function AllBooksPage() {
   const [books, setBooks] = useState<Book[]>([])
-  const [filteredBooks, setFilteredBooks] = useState<Book[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
+  const [search, setSearch] = useState("")
   const [activeCategory, setActiveCategory] = useState("All Categories")
 
   const fetchAllBooks = async () => {
@@ -36,7 +36,6 @@ export default function AllBooksPage() {
       }
       const data = await response.json()
       setBooks(data.books)
-      setFilteredBooks(data.books)
     } catch (err: any) {
       setError(`Something went wrong: ${err.message}`)
     } finally {
@@ -48,22 +47,32 @@ export default function AllBooksPage() {
     fetchAllBooks()
   }, [])
 
-  useEffect(() => {
-    if (activeCategory === "All Categories" || activeCategory === "") {
-      setFilteredBooks(books)
-    } else {
-      const filtered = books.filter((book) => book.category === activeCategory)
-      setFilteredBooks(filtered)
-    }
-  }, [activeCategory, books])
+  const visibleBooks = useMemo(() => {
+    let filtered = [...books]
 
-  // if (error) {
-  //   return (
-  //     <div className="flex justify-center items-center mt-20 h-60">
-  //       <p className="text-red-600 text-xl">{error}</p>
-  //     </div>
-  //   )
-  // }
+    // filter by category
+    if (activeCategory !== "All Categories" && activeCategory !== "") {
+      filtered = filtered.filter((book) => book.category === activeCategory)
+    }
+
+    // Search filtering
+    if (search) {
+      const searchLower = search.toLowerCase()
+      filtered = filtered.filter(
+        (book) =>
+          book.title.toLowerCase().includes(searchLower) ||
+          book.description.toLowerCase().includes(searchLower) ||
+          book.author.toLowerCase().includes(searchLower) ||
+          book.category.toLowerCase().includes(searchLower)
+      )
+    }
+
+    return filtered
+  }, [books, search, activeCategory])
+
+  const handleSearchChange = (value: string) => {
+    setSearch(value)
+  }
 
   return (
     <section className="max-w-6xl mx-auto px-4 py-12 bg-[#fdfdfd]">
@@ -72,10 +81,12 @@ export default function AllBooksPage() {
         <p className="text-lg font-medium">What interests you</p>
       </div>
       <div className="flex flex-col sm:flex-row items-center justify-between gap-3 mb-8 py-10 px-6">
-        <form action="">
+        <form onSubmit={(e) => e.preventDefault()}>
           <input
             type="text"
             placeholder="Search books, authors, genres..."
+            value={search}
+            onChange={(e) => handleSearchChange(e.target.value)}
             className="md:w-xs lg:w-lg rounded-full border border-black px-5 py-2 text-gray-600"
           />
         </form>
@@ -104,7 +115,7 @@ export default function AllBooksPage() {
           <BooksSkeleton />
         ) : (
           <>
-            {filteredBooks.map((book) => (
+            {visibleBooks.map((book) => (
               <div
                 key={book._id}
                 className="bg-white rounded-xl border border-[#f3f3f3] max-w-[350px] mx-auto shadow-sm hover:shadow-md transition duration-300 overflow-hidden"
