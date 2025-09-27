@@ -45,10 +45,15 @@ const Navbar = () => {
               </ul>
             )}
             <UserDropdown />
-            <div className={``}>
+            <div className="hidden lg:block">
               <LogoutButton />
             </div>
-            <Menu />
+            <Menu
+              onClick={() => setUserMenuOpen((prev) => !prev)}
+              className="block lg:hidden cursor-pointer hover:scale-110 duration-300"
+              height={35}
+              width={35}
+            />
           </div>
         ) : (
           <>
@@ -215,13 +220,9 @@ const Navbar = () => {
                 {link.label}
               </Link>
             ))}
-            <Link
-              href="/signin"
-              className="flex items-center gap-1 mx-auto my-5 font-medium border border-black px-3 py-1.5 rounded-sm hover:outline-1 hover:outline-black"
-            >
-              Sign In
-              <LogIn />
-            </Link>
+            <div className="mx-auto my-5">
+              <LogoutButton />
+            </div>
           </nav>
         )}
 
@@ -246,13 +247,9 @@ const Navbar = () => {
                 {link.label}
               </Link>
             ))}
-            <Link
-              href="/signin"
-              className="flex items-center gap-1 mx-auto my-5 font-medium border border-black px-3 py-1.5 rounded-sm hover:outline-1 hover:outline-black"
-            >
-              Sign In
-              <LogIn />
-            </Link>
+            <div className="mx-auto my-5">
+              <LogoutButton />
+            </div>
           </nav>
         )}
 
