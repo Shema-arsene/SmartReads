@@ -150,6 +150,7 @@ const Navbar = () => {
           </nav>
         )}
 
+        {/* Non logged in users */}
         {!user && (
           <nav className="flex items-center text-lg font-light">
             {[
@@ -196,6 +197,66 @@ const Navbar = () => {
           width={35}
           onClick={() => setUserMenuOpen(false)}
         />
+        {/* Authors and Publishers Navbar */}
+        {(user?.role === "author" || user?.role === "publisher") && (
+          <nav className="flex flex-col items-start text-lg font-light gap-3">
+            {[
+              { href: "/", label: "Home" },
+              { href: "/about", label: "About SmartReads" },
+              { href: "/publish", label: "Publish a book" },
+            ].map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`${
+                  pathname === link.href ? "underline font-normal" : ""
+                } hover:underline duration-300`}
+              >
+                {link.label}
+              </Link>
+            ))}
+            <Link
+              href="/signin"
+              className="flex items-center gap-1 mx-auto my-5 font-medium border border-black px-3 py-1.5 rounded-sm hover:outline-1 hover:outline-black"
+            >
+              Sign In
+              <LogIn />
+            </Link>
+          </nav>
+        )}
+
+        {/* Readers Navbar */}
+        {user?.role === "reader" && (
+          <nav className="flex flex-col items-start text-lg font-light gap-3">
+            {[
+              { href: "/", label: "Home" },
+              { href: "/about", label: "About SmartReads" },
+              { href: "/e-books", label: "E-Books" },
+              { href: "/favorites", label: "Favorites" },
+              { href: "/likes", label: "Likes" },
+              { href: "/read-history", label: "Read History" },
+            ].map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`${
+                  pathname === link.href ? "underline font-normal" : ""
+                } hover:underline duration-300`}
+              >
+                {link.label}
+              </Link>
+            ))}
+            <Link
+              href="/signin"
+              className="flex items-center gap-1 mx-auto my-5 font-medium border border-black px-3 py-1.5 rounded-sm hover:outline-1 hover:outline-black"
+            >
+              Sign In
+              <LogIn />
+            </Link>
+          </nav>
+        )}
+
+        {/* Non logged in users */}
         {!user && (
           <nav className="flex flex-col items-start text-lg font-light gap-3">
             {[
