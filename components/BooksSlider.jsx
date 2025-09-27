@@ -109,7 +109,7 @@ const BookSlider = () => {
             <div className="text-center">
               <div className="flex flex-col items-center justify-center mb-4">
                 <div className="bg-[#679436]/20 p-2 md:p-4 mb-2 rounded-full md:mr-4 backdrop-blur-sm">
-                  <Gift className="h-4 w-4 md:h-8 md:w-8 text-[#a5be00]" />
+                  <Gift className="h-6 w-6 md:h-8 md:w-8 text-[#a5be00]" />
                 </div>
                 <span className="text-sm md:text-2xl font-semibold">
                   Start Free Trial
@@ -124,7 +124,7 @@ const BookSlider = () => {
             <div className="text-center">
               <div className="flex flex-col items-center justify-center mb-4">
                 <div className="bg-[#679436]/20 p-2 md:p-4 mb-2 rounded-full md:mr-4 backdrop-blur-sm">
-                  <Feather className="h-4 w-4 md:h-8 md:w-8 text-[#a5be00]" />
+                  <Feather className="h-6 w-6 md:h-8 md:w-8 text-[#a5be00]" />
                 </div>
                 <span className="text-sm md:text-2xl font-semibold">
                   Become an Author
@@ -139,7 +139,7 @@ const BookSlider = () => {
             <div className="text-center">
               <div className="flex flex-col items-center justify-center mb-4">
                 <div className="bg-[#679436]/20 p-2 md:p-4 mb-2 rounded-full md:mr-4 backdrop-blur-sm">
-                  <BookOpen className="h-4 w-4 md:h-8 md:w-8 text-[#a5be00]" />
+                  <BookOpen className="h-6 w-6 md:h-8 md:w-8 text-[#a5be00]" />
                 </div>
                 <span className="text-sm md:text-2xl font-semibold">
                   Start Reading
