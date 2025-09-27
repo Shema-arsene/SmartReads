@@ -34,8 +34,6 @@ type Author = {
 
 const ReaderHomepage = () => {
   const [books, setBooks] = useState<Book[]>([])
-  const [authors, setAuthors] = useState<Author[]>([])
-  const [publishers, setPublishers] = useState<Publisher[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
 
@@ -56,44 +54,8 @@ const ReaderHomepage = () => {
     }
   }
 
-  const fetchAllAuthors = async () => {
-    try {
-      const response = await fetch("/api/user/getAuthors", {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      })
-      if (!response.ok) throw new Error("Failed to fetch authors")
-
-      const data = await response.json()
-      setAuthors(data.users)
-    } catch (err: any) {
-      setError(err.message || "Something went wrong")
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const fetchAllPublishers = async () => {
-    try {
-      const response = await fetch("/api/user/getPublishers", {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      })
-      if (!response.ok) throw new Error("Failed to fetch publishers")
-
-      const data = await response.json()
-      setPublishers(data.users)
-    } catch (err: any) {
-      setError(err.message || "Something went wrong")
-    } finally {
-      setLoading(false)
-    }
-  }
-
   useEffect(() => {
     fetchAllBooks()
-    fetchAllAuthors()
-    fetchAllPublishers()
   }, [])
 
   return (
