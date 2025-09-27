@@ -12,7 +12,7 @@ const Navbar = () => {
   const pathname = usePathname()
   const { user } = useAuth()
 
-  const [userMenuOpen, setUserMenuOpen] = useState(true)
+  const [userMenuOpen, setUserMenuOpen] = useState(false)
 
   return (
     <header className="">
