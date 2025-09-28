@@ -26,7 +26,7 @@ const BooksComponent = ({
   error: string
 }) => {
   return (
-    <section className="px-6 py-10 relative">
+    <section className="px-6 md:px-0 py-10 relative">
       <h2 className="text-2xl font-semibold mb-6">{title}</h2>
       {subTitle && <p className="text-sm text-gray-500 mb-4">{subTitle}</p>}
 
