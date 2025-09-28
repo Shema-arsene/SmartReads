@@ -1,36 +1,110 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SmartReads
 
-## Getting Started
+# Premium Digital Library System for Authors, Readers, and Publishers
 
-First, run the development server:
+**Project Owner:** Niyonkuru Shema Arsene
+
+---
+
+## Objective
+
+Building a modern, non-standard, interactive UI that reproduces the core layout, typography and scroll-driven experience of the reference cinematic site (`https://wakanda-forever-master.dogstudio-dev.co/zerolimits`) while replacing the heavy 3D model with a creative alternative that preserves the immersive, cinematic feel.
+
+---
+
+## Deliverables
+
+- Link to the live deployed site: `https://smart-reads-psi.vercel.app/`
+- Repository with source code: `https://github.com/Shema-arsene/SmartReads`
+
+---
+
+## Summary of what I implemented
+
+This project reproduces the visual and interaction essence of the reference site with the following design decisions:
+
+- **Framework & tools:** Next.js, Node.js/Express.js, Tailwind CSS (v4), ShadCn.
+
+- **Features:**
+
+---
+
+## Project structure
+
+```
+app/
+├─ api/
+├─ about/
+├─ audio-books/
+├─ book-insights/
+├─ checkout/
+├─ contact/
+├─ context/
+├─ e-books/
+├─ profile/
+├─ publish/
+├─ signin/
+├─ signup/
+├─ components/
+│  ├─ ui/
+│  ├─ alert-dialog.tsx              # Component
+│  ├─ avatar.tsx                    # Component
+│  ├─ card.tsx                      # Component
+│  ├─ carousel.tsx                  # Component
+│  ├─ menubar.tsx                   # Component
+│  ├─ select.tsx                    # Component
+│  ├─ skeleton.tsx                  # Component
+│  ├─ tabs.tsx                      # Component
+│  ├─ uiComponent/                  # Component
+│  ├─ LogOutButton.tsx              # Component
+│  ├─ ProfileAvatar.tsx             # Component
+│  ├─ UserDropdown.tsx              # Component
+
+│  ├─ AuthorPublisherHomepage.tsx   # Homepage for Authors and Publishers
+│  ├─ BookCard.tsx                  # Component
+│  └─ BookComponent.tsx             # Component
+│
+├─ backend/
+│  ├─ lib/
+│  ├─ lib/db.ts
+│  ├─ middleware/
+│  ├─ middleware/verifyToken.ts
+│  ├─ models/
+│  ├─ models/ Book.ts              # Book model
+│  └─ models/ User.ts              # User model
+|
+├─ globals.css
+├─ layout.tsx
+├─ page.tsx
+
+```
+
+---
+
+## How to run locally
+
+1. Clone repository
+
+```bash
+git clone https://github.com/Shema-arsene/SmartReads
+cd repo-folder
+```
+
+2. Install
+
+```bash
+npm install
+```
+
+3. Run dev server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Build for production
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run build
+npm run preview # optional
+```
