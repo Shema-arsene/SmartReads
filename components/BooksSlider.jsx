@@ -90,7 +90,7 @@ const BookSlider = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-8 text-center text-white">
+      <div className="relative z-10 container mx-auto px-3 sm:px-5 md:px-8 text-center text-white">
         <div className="max-w-5xl mx-auto">
           <h1 className="text-3xl md:text-5xl font-semibold mb-12 text-balance leading-tight">
             {slides[currentSlide].title}
@@ -104,7 +104,7 @@ const BookSlider = () => {
           </p>
 
           {/* CTA */}
-          <div className="grid grid-cols-3 gap-12 max-w-4xl mx-auto">
+          <div className="grid grid-cols-3 gap-3 lg:gap-12 max-w-4xl mx-auto max-sm:px-3">
             {/* Start Free Trial */}
             <div className="text-center">
               <div className="flex flex-col items-center justify-center mb-4">
