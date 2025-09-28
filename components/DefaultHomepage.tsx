@@ -5,6 +5,15 @@ import CategoriesSkeleton from "./CategoriesSkeleton"
 import RecommendedCategories from "./RecommendedCategories"
 import BookSlider from "./BooksSlider"
 
+import { Card, CardContent } from "@/components/ui/card"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
+
 type Book = {
   _id: string
   title: string
@@ -62,6 +71,51 @@ const ReaderHomepage = () => {
     <main className="">
       {/* Hero Slider */}
       <BookSlider />
+
+      <div className="p-5 max-w-5xl mx-auto">
+        <Carousel
+          opts={{
+            align: "start",
+          }}
+          className="w-full"
+        >
+          <CarouselContent>
+            {loading ? (
+              <BooksSkeleton />
+            ) : error ? (
+              <p className="text-red-600">{error}</p>
+            ) : (
+              books.map((book) => (
+                <CarouselItem
+                  key={book._id}
+                  className="md:basis-1/2 lg:basis-1/3"
+                >
+                  <div className="p-1">
+                    <Card>
+                      <CardContent className="flex flex-col items-center justify-center p-4 space-y-3">
+                        <img
+                          src={book.imageUrl}
+                          alt={book.title}
+                          className="w-full h-56 object-cover rounded-md"
+                        />
+                        <h3 className="text-lg font-semibold text-center">
+                          {book.title}
+                        </h3>
+                        <p className="text-sm text-gray-500">{book.author}</p>
+                        <span className="text-[#f28f3b] font-semibold">
+                          ${book.price}
+                        </span>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
+              ))
+            )}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
+      </div>
 
       {/* Best Sellers */}
       {loading ? (
