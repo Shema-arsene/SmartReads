@@ -8,7 +8,7 @@
 
 ## Objective
 
-Building a modern, non-standard, interactive UI that reproduces the core layout, typography and scroll-driven experience of the reference cinematic site (`https://wakanda-forever-master.dogstudio-dev.co/zerolimits`) while replacing the heavy 3D model with a creative alternative that preserves the immersive, cinematic feel.
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam aliquid fugiat, nihil delectus impedit cum sapiente eligendi, rem libero eaque, quas debitis deserunt corrupti itaque voluptatibus! Tempora quae vel eveniet!
 
 ---
 
