@@ -1,8 +1,15 @@
 "use client"
 
-import React, { useRef } from "react"
+import React from "react"
 import Image from "next/image"
-import { FaChevronRight, FaChevronLeft } from "react-icons/fa"
+import { Card, CardContent } from "@/components/ui/card"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
 
 const RecommendedCategories = () => {
   const categories = [
@@ -37,86 +44,50 @@ const RecommendedCategories = () => {
       name: "Thriller",
       imageUrl: "https://via.placeholder.com/150",
     },
-    {
-      _id: "12",
-      name: "Fiction",
-      imageUrl: "https://via.placeholder.com/150",
-    },
-    {
-      _id: "13",
-      name: "Mystery",
-      imageUrl: "https://via.placeholder.com/150",
-    },
+    { _id: "12", name: "Fiction", imageUrl: "https://via.placeholder.com/150" },
+    { _id: "13", name: "Mystery", imageUrl: "https://via.placeholder.com/150" },
     {
       _id: "14",
       name: "Science Fiction",
       imageUrl: "https://via.placeholder.com/150",
     },
-    {
-      _id: "15",
-      name: "Fantasy",
-      imageUrl: "https://via.placeholder.com/150",
-    },
+    { _id: "15", name: "Fantasy", imageUrl: "https://via.placeholder.com/150" },
   ]
 
-  const scrollRef = useRef<HTMLDivElement>(null)
-
-  const scroll = (dir: "left" | "right") => {
-    if (!scrollRef.current) return
-    scrollRef.current.scrollBy({
-      left: dir === "left" ? -300 : 300,
-      behavior: "smooth",
-    })
-  }
-
   return (
-    <section className="px-6 py-10 relative">
-      <h2 className="text-2xl font-semibold mb-6">Recommended categories</h2>
+    <section className="px-6 py-10 relative max-w-6xl mx-auto">
+      <h2 className="text-2xl font-semibold mb-3">Recommended categories</h2>
+      <p className="text-sm text-gray-500 mb-6">Read based on categories</p>
 
-      {/* Left Arrow */}
-
-      <button
-        onClick={() => scroll("left")}
-        className="absolute left-0 top-1/2 -translate-y-1/2 bg-white outline outline-gray-900 hover:outline-2 rounded-full 
-              shadow-md z-10 cursor-pointer p-2"
-      >
-        <FaChevronLeft size={30} />
-      </button>
-
-      {/* Scrollable Category List */}
-      <div
-        ref={scrollRef}
-        className="flex overflow-x-auto scrollbar-hide gap-4 scroll-smooth"
-      >
-        {categories.map((category) => (
-          <div
-            key={category._id}
-            className="flex-shrink-0 w-44 border rounded-lg overflow-hidden hover:shadow-lg transition"
-          >
-            <div className="h-28 w-full relative">
-              <Image
-                src={category.imageUrl}
-                alt={category.name}
-                width={200}
-                height={120}
-                className="object-cover"
-              />
-            </div>
-            <p className="text-sm px-3 py-2 text-blue-700 font-medium">
-              {category.name}
-            </p>
-          </div>
-        ))}
-      </div>
-
-      {/* Right Arrow */}
-      <button
-        onClick={() => scroll("right")}
-        className="absolute right-0 top-1/2 -translate-y-1/2 bg-white outline outline-gray-600 hover:outline-2
-                        rounded-full shadow-md z-10 cursor-pointer p-2"
-      >
-        <FaChevronRight size={30} />
-      </button>
+      <Carousel opts={{ align: "start" }}>
+        <CarouselContent>
+          {categories.map((category) => (
+            <CarouselItem
+              key={category._id}
+              className="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
+            >
+              <Card className="overflow-hidden hover:shadow-lg transition">
+                <CardContent className="p-0">
+                  <div className="h-28 w-full relative">
+                    <Image
+                      src={category.imageUrl}
+                      alt={category.name}
+                      width={200}
+                      height={120}
+                      className="object-cover w-full h-full"
+                    />
+                  </div>
+                  <p className="text-sm px-3 py-2 text-blue-700 font-medium">
+                    {category.name}
+                  </p>
+                </CardContent>
+              </Card>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious />
+        <CarouselNext />
+      </Carousel>
     </section>
   )
 }
