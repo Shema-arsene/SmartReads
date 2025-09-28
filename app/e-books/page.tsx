@@ -75,7 +75,7 @@ export default function AllBooksPage() {
   }
 
   return (
-    <section className="max-w-6xl mx-auto px-4 py-12 bg-[#fdfdfd]">
+    <section className="max-w-6xl mx-auto px-4 py-12 my-5">
       <div className="flex flex-col items-center space-y-3.5">
         <h1 className="text-3xl font-bold text-[#c8553d]">E-Books Library</h1>
         <p className="text-lg font-medium">What interests you</p>
@@ -115,42 +115,55 @@ export default function AllBooksPage() {
           <BooksSkeleton />
         ) : (
           <>
-            {visibleBooks.map((book) => (
-              <div
-                key={book._id}
-                className="bg-white rounded-xl border border-[#f3f3f3] max-w-[350px] mx-auto shadow-sm hover:shadow-md transition duration-300 overflow-hidden"
-              >
-                <Link href={`/e-books/${book._id}`}>
-                  <img
-                    src={book.imageUrl}
-                    alt={book.title}
-                    className="w-full h-56 object-cover transition duration-300 hover:opacity-90"
-                  />
-                </Link>
-
-                <div className="p-4">
-                  <Link href={`/e-books/${book._id}`}>
-                    <h2 className="text-xl font-semibold text-[#c8553d] hover:underline mb-1">
-                      {book.title}
-                    </h2>
-                  </Link>
-
-                  <p className="text-[#588b8b] text-sm mb-1">
-                    By: {book.author}
-                  </p>
-                  <p className="text-gray-500 text-xs uppercase tracking-wide mb-2">
-                    {book.category}
-                  </p>
-                  <p className="text-sm text-gray-700 line-clamp-3 mb-3">
-                    {book.description}
-                  </p>
-
-                  <p className="text-right text-[#f28f3b] font-semibold text-base">
-                    ${book.price}
-                  </p>
-                </div>
+            {visibleBooks.length == 0 ? (
+              <div>
+                <h3 className="text-lg font-semibold mb-2">
+                  No book matches your filters
+                </h3>
+                <p className="text-muted-foreground">
+                  Try adjusting your search or filter criteria.
+                </p>
               </div>
-            ))}
+            ) : (
+              <>
+                {visibleBooks.map((book) => (
+                  <div
+                    key={book._id}
+                    className="bg-white rounded-xl border border-[#f3f3f3] max-w-[350px] mx-auto shadow-sm hover:shadow-md transition duration-300 overflow-hidden"
+                  >
+                    <Link href={`/e-books/${book._id}`}>
+                      <img
+                        src={book.imageUrl}
+                        alt={book.title}
+                        className="w-full h-56 object-cover transition duration-300 hover:opacity-90"
+                      />
+                    </Link>
+
+                    <div className="p-4">
+                      <Link href={`/e-books/${book._id}`}>
+                        <h2 className="text-xl font-semibold text-[#c8553d] hover:underline mb-1">
+                          {book.title}
+                        </h2>
+                      </Link>
+
+                      <p className="text-[#588b8b] text-sm mb-1">
+                        By: {book.author}
+                      </p>
+                      <p className="text-gray-500 text-xs uppercase tracking-wide mb-2">
+                        {book.category}
+                      </p>
+                      <p className="text-sm text-gray-700 line-clamp-3 mb-3">
+                        {book.description}
+                      </p>
+
+                      <p className="text-right text-[#f28f3b] font-semibold text-base">
+                        ${book.price}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
           </>
         )}
       </div>

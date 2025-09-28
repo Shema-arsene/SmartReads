@@ -60,7 +60,9 @@ const BooksComponent = ({
                         </Link>
                         <Link href={`/e-books/${book._id}`}>
                           <h3 className="text-lg font-semibold text-[#c8553d] hover:underline mb-1">
-                            {book.title}
+                            {book.title.length >= 20
+                              ? book.title.substring(0, 20) + "..."
+                              : book.title}
                           </h3>
                         </Link>
                         <p className="text-[#588b8b] text-sm mb-1">
@@ -70,7 +72,7 @@ const BooksComponent = ({
                           By: {book.category}
                         </p>
                         <p className="text-sm text-gray-700 line-clamp-3 mb-3">
-                          By: {book.description.substring(0, 30) + "..."}
+                          By: {book.description.substring(0, 20) + "..."}
                         </p>
                         <span className="ml-auto mr-1 text-right text-[#f28f3b] font-semibold text-base">
                           ${book.price}
