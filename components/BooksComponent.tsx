@@ -25,16 +25,6 @@ const BooksComponent = ({
   loading: boolean
   error: string
 }) => {
-  const scrollRef = useRef<HTMLDivElement>(null)
-
-  const scroll = (dir: "left" | "right") => {
-    if (!scrollRef.current) return
-    scrollRef.current.scrollBy({
-      left: dir === "left" ? -300 : 300,
-      behavior: "smooth",
-    })
-  }
-
   return (
     <section className="px-6 py-10 relative">
       <h2 className="text-2xl font-semibold mb-6">{title}</h2>
@@ -56,25 +46,33 @@ const BooksComponent = ({
               books.map((book) => (
                 <CarouselItem
                   key={book._id}
-                  className="md:basis-1/2 lg:basis-1/3"
+                  className="basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
                 >
                   <div>
                     <Card>
-                      <CardContent className="flex flex-col items-center justify-center p-4 space-y-3">
+                      <CardContent className="flex flex-col items-start justify-center p-4 space-y-3">
                         <Link href={`/e-books/${book._id}`}>
                           <img
                             src={book.imageUrl}
                             alt={book.title}
-                            className="w-full h-56 object-cover rounded-md"
+                            className="rounded-xl w-full h-56 object-cover transition duration-300 hover:opacity-90"
                           />
                         </Link>
                         <Link href={`/e-books/${book._id}`}>
-                          <h3 className="text-lg font-semibold text-center">
+                          <h3 className="text-lg font-semibold text-[#c8553d] hover:underline mb-1">
                             {book.title}
                           </h3>
                         </Link>
-                        <p className="text-sm text-gray-500">{book.author}</p>
-                        <span className="text-[#f28f3b] font-semibold">
+                        <p className="text-[#588b8b] text-sm mb-1">
+                          By: {book.author}
+                        </p>
+                        <p className="text-gray-500 text-xs uppercase tracking-wide mb-2">
+                          By: {book.category}
+                        </p>
+                        <p className="text-sm text-gray-700 line-clamp-3 mb-3">
+                          By: {book.description.substring(0, 30) + "..."}
+                        </p>
+                        <span className="ml-auto mr-1 text-right text-[#f28f3b] font-semibold text-base">
                           ${book.price}
                         </span>
                       </CardContent>
