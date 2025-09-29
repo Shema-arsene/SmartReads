@@ -92,7 +92,11 @@ const AuthorPublisherHomepage = () => {
       <section className="flex flex-col md:flex-row items-center justify-start my-10 max-w-6xl mx-auto">
         <div className="flex-1 p-5">
           <img
-            src={user?.profileImage}
+            src={
+              user?.profileImage
+                ? user?.profileImage
+                : "https://res-console.cloudinary.com/dnh0ntxqr/thumbnails/v1/image/upload/v1759154714/VXNlcl9wdHg1eWw=/preview"
+            }
             alt={user?.firstName}
             className="h-56 w-56 rounded-full"
           />
