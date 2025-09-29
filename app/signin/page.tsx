@@ -27,7 +27,7 @@ const SignInPage = () => {
 
       router.push("/")
     } catch (err) {
-      setError("Something went wrong")
+      setError("Invalid email or password.")
       console.log("Login failed. Error: ", err)
     }
   }
