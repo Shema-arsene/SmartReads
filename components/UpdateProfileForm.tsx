@@ -78,6 +78,7 @@ const UpdateProfileForm = () => {
     profileImage: "",
     bio: "",
   })
+  const [confirmPassword, setConfirmPassword] = useState("")
 
   const userNames = user?.firstName + " " + user?.secondName
 
@@ -105,6 +106,13 @@ const UpdateProfileForm = () => {
     setUpdating(true)
 
     try {
+      if (form.password && form.password !== confirmPassword) {
+        alert("Passwords do not match")
+        setUpdating(false)
+        setConfirmPassword("")
+        return
+      }
+
       const token = localStorage.getItem("token")
       if (!token) throw new Error("No token found")
 
@@ -124,7 +132,7 @@ const UpdateProfileForm = () => {
       }
 
       alert("Profile updated successfully!")
-      console.log("Updated user:", data.user)
+      setConfirmPassword("")
     } catch (error) {
       console.error("Error updating profile:", error)
       alert("Update failed. Try again.")
@@ -236,6 +244,17 @@ const UpdateProfileForm = () => {
               value={form.password}
               onChange={handleChange}
               placeholder="Enter your new password"
+              className="w-full mt-1 border px-4 py-2 rounded-md text-gray-700"
+            />
+          </div>
+          <div>
+            <label className="block font-medium">Confirm New Password:</label>
+            <input
+              type="password"
+              name="confirmPassword"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="Re-enter your new password"
               className="w-full mt-1 border px-4 py-2 rounded-md text-gray-700"
             />
           </div>
