@@ -21,8 +21,7 @@ const AuthorPublisherHomepage = () => {
   const { user, loading } = useAuth()
   const router = useRouter()
   const [books, setBooks] = useState<Book[]>([])
-  // const [loadingBooks, setLoadingBooks] = useState(true)
-  const [loadingBooks, setLoadingBooks] = useState(false)
+  const [loadingBooks, setLoadingBooks] = useState(true)
 
   useEffect(() => {
     if (!loading) {
@@ -49,7 +48,6 @@ const AuthorPublisherHomepage = () => {
       console.error("Error fetching books: ", error)
     } finally {
       setLoadingBooks(false)
-      // setLoadingBooks(true)
     }
   }
 
