@@ -28,11 +28,44 @@ type UserForm = {
 const UpdateProfileForm = () => {
   const router = useRouter()
   const { user, loading } = useAuth()
+  const [profileUser, setProfileUser] = useState(null)
+
+  const fetchUser = async () => {
+    try {
+      const token = localStorage.getItem("token")
+      if (!token) throw new Error("No token found")
+
+      const res = await fetch("/api/user", {
+        headers: {
+          Authorization: `Bearer ${token}`, // ✅ send token
+        },
+      })
+
+      const data = await res.json()
+      setProfileUser(data.user)
+      if (!res.ok) throw new Error(data.message || "Failed to fetch user")
+
+      setForm({
+        firstName: data.user.firstName,
+        secondName: data.user.secondName,
+        email: data.user.email,
+        password: "",
+        role: data.user.role,
+        profileImage: data.user.profileImage,
+        bio: data.user.bio,
+      })
+      console.log(data.user)
+    } catch (error) {
+      console.error("Error fetching user:", error)
+    }
+  }
 
   useEffect(() => {
     if (!loading && !user) {
       router.push("/")
     }
+
+    fetchUser()
   }, [user, loading, router])
 
   const [updating, setUpdating] = useState(false)
@@ -45,20 +78,6 @@ const UpdateProfileForm = () => {
     profileImage: "",
     bio: "",
   })
-
-  useEffect(() => {
-    if (user) {
-      setForm({
-        firstName: user.firstName || "",
-        secondName: user.secondName || "",
-        email: user.email || "",
-        password: "",
-        role: user.role || "reader",
-        profileImage: user.profileImage || "",
-        bio: user.bio || "",
-      })
-    }
-  }, [user])
 
   const userNames = user?.firstName + " " + user?.secondName
 
@@ -81,26 +100,38 @@ const UpdateProfileForm = () => {
   }
 
   // Update profile
-  const handleUpdate = async (e: React.FormEvent) => {
+  const handleProfileUpdate = async (e: React.FormEvent) => {
     e.preventDefault()
     setUpdating(true)
-    // try {
-    //   const res = await fetch("/api/profile", {
-    //     method: "PUT",
-    //     headers: { "Content-Type": "application/json" },
-    //     credentials: "include",
-    //     body: JSON.stringify(form),
-    //   })
-    //   const data = await res.json()
-    //   alert("Profile updated successfully!")
-    // } catch (error) {
-    //   console.error("Error updating profile:", error)
-    //   alert("Update failed. Try again.")
-    // } finally {
-    //   setUpdating(false)
-    // }
 
-    console.log(form)
+    try {
+      const token = localStorage.getItem("token")
+      if (!token) throw new Error("No token found")
+
+      const res = await fetch("/api/user", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // ✅ send token
+        },
+        body: JSON.stringify(form),
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) {
+        throw new Error(data.message || "Update failed")
+      }
+
+      alert("Profile updated successfully!")
+      console.log("Updated user:", data.user)
+    } catch (error) {
+      console.error("Error updating profile:", error)
+      alert("Update failed. Try again.")
+    } finally {
+      setUpdating(false)
+      fetchUser()
+    }
   }
 
   if (loading) {
@@ -151,7 +182,7 @@ const UpdateProfileForm = () => {
         </div>
 
         {/* Update Profile Form */}
-        <form onSubmit={handleUpdate} className="space-y-5">
+        <form onSubmit={handleProfileUpdate} className="space-y-5">
           <div>
             <label className="block font-medium">Profile Image:</label>
             <input
