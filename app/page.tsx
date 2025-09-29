@@ -6,9 +6,9 @@ import DefaultHomepage from "@/components/DefaultHomepage"
 import HomepageSkeleton from "@/components/HomepageSkeleton"
 
 export default function Home() {
-  const { user } = useAuth()
+  const { user, loading } = useAuth()
 
-  if (user === null) {
+  if (loading) {
     return <HomepageSkeleton />
   }
 
@@ -16,7 +16,5 @@ export default function Home() {
     return <AuthorPublisherHomepage />
   }
 
-  if (user?.role === "reader" || !user) {
-    return <DefaultHomepage />
-  }
+  return <DefaultHomepage />
 }
