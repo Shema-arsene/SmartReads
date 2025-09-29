@@ -49,7 +49,7 @@ const BooksComponent = ({
                   className="basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
                 >
                   <div>
-                    <Card>
+                    <Card className="max-w-[300px] mx-auto">
                       <CardContent className="flex flex-col items-start justify-center p-4 space-y-3">
                         <Link href={`/e-books/${book._id}`}>
                           <img
