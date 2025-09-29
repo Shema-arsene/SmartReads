@@ -3,9 +3,14 @@
 import { useAuth } from "./context/AuthContext"
 import AuthorPublisherHomepage from "@/components/AuthorPublisherHomepage"
 import DefaultHomepage from "@/components/DefaultHomepage"
+import HomepageSkeleton from "@/components/HomepageSkeleton"
 
 export default function Home() {
   const { user } = useAuth()
+
+  if (user === null) {
+    return <HomepageSkeleton />
+  }
 
   if (user?.role === "author" || user?.role === "publisher") {
     return <AuthorPublisherHomepage />
@@ -14,10 +19,4 @@ export default function Home() {
   if (user?.role === "reader" || !user) {
     return <DefaultHomepage />
   }
-
-  return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="w-16 h-16 border-4 border-[#c2a756] border-t-transparent rounded-full animate-spin"></div>
-    </div>
-  )
 }
