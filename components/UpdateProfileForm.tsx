@@ -237,7 +237,7 @@ const UpdateProfileForm = () => {
             />
           </div>
           <div>
-            <label className="block font-medium">Password:</label>
+            <label className="block font-medium">New Password:</label>
             <input
               type="password"
               name="password"
