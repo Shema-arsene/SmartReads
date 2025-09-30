@@ -24,7 +24,7 @@ interface AuthContextType {
     email: string,
     userRole: string,
     password: string,
-    profileImage: File | null
+    profileImage: string | null
   ) => Promise<void>
   logout: () => void
 }
@@ -72,7 +72,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     email: string,
     userRole: string,
     password: string,
-    profileImage: File | null
+    profileImage: string | null
   ) => {
     console.log("🚀 Attempting signup with:", {
       firstName,

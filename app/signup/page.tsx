@@ -13,13 +13,40 @@ const SignUpPage = () => {
   const [userRole, setUserRole] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
-  const [profileImage, setProfileImage] = useState<File | null>(null)
+  const [profileImageFile, setProfileImageFile] = useState<File | null>(null)
   const [error, setError] = useState("")
   const router = useRouter()
 
   const handleProfileImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
-    if (file) setProfileImage(file)
+    if (file) setProfileImageFile(file)
+  }
+
+  const uploadProfileImageToCloudinary = async (
+    imageFile: File
+  ): Promise<string | null> => {
+    const formData = new FormData()
+    formData.append("file", imageFile)
+    formData.append(
+      "upload_preset",
+      process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET as string
+    )
+
+    try {
+      const res = await fetch(
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      )
+
+      const data = await res.json()
+      return data.secure_url // This is the URL to save in your DB
+    } catch (err) {
+      console.error("Cloudinary upload failed:", err)
+      return null
+    }
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -31,19 +58,22 @@ const SignUpPage = () => {
       return
     }
 
-    console.log({
-      firstName,
-      secondName,
-      email,
-      userRole,
-      password,
-      confirmPassword,
-    })
-
     if (password !== confirmPassword) {
       setError("Passwords don't match!")
       return
     }
+
+    let profileImageUrl = ""
+    if (profileImageFile) {
+      profileImageUrl =
+        (await uploadProfileImageToCloudinary(profileImageFile)) || ""
+      if (profileImageFile && !profileImageUrl) {
+        setError("Failed to upload profile image. Try again.")
+        return
+      }
+    }
+
+    console.log("Profile Image URL: ", profileImageUrl)
 
     try {
       await signup(
@@ -52,9 +82,8 @@ const SignUpPage = () => {
         email,
         userRole,
         password,
-        profileImage
+        profileImageUrl
       )
-
       router.push("/")
     } catch (err: any) {
       setError(err.message || "Something went wrong. Please try again.")

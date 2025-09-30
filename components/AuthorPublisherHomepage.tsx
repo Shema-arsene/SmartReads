@@ -19,6 +19,8 @@ interface Book {
 
 const AuthorPublisherHomepage = () => {
   const { user, loading } = useAuth()
+  console.log("user profileImage: ", user?.profileImage)
+
   const router = useRouter()
   const [books, setBooks] = useState<Book[]>([])
   const [loadingBooks, setLoadingBooks] = useState(false)

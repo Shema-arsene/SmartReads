@@ -66,6 +66,7 @@ export async function POST(request: NextRequest) {
       email,
       role: userRole,
       password,
+      profileImage,
     })
 
     // Save user to database
