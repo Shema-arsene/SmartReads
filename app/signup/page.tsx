@@ -13,8 +13,14 @@ const SignUpPage = () => {
   const [userRole, setUserRole] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
+  const [profileImage, setProfileImage] = useState<File | null>(null)
   const [error, setError] = useState("")
   const router = useRouter()
+
+  const handleProfileImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) setProfileImage(file)
+  }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -40,7 +46,14 @@ const SignUpPage = () => {
     }
 
     try {
-      await signup(firstName, secondName, email, userRole, password)
+      await signup(
+        firstName,
+        secondName,
+        email,
+        userRole,
+        password,
+        profileImage
+      )
 
       router.push("/")
     } catch (err: any) {
@@ -56,6 +69,18 @@ const SignUpPage = () => {
           Create Your Account
         </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label htmlFor="image" className="block font-medium mb-1">
+              Profile Image
+            </label>
+            <input
+              id="image"
+              type="file"
+              accept="image/*"
+              onChange={handleProfileImageChange}
+              className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-700"
+            />
+          </div>
           <div className="flex flex-col sm:flex-row items-center sm:space-x-4 space-y-4 sm:space-y-0">
             <input
               type="text"

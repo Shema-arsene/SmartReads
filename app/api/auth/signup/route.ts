@@ -11,7 +11,8 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json()
-    const { firstName, secondName, email, userRole, password } = body
+    const { firstName, secondName, email, userRole, password, profileImage } =
+      body
 
     console.log("Incoming body", body)
 
@@ -21,6 +22,7 @@ export async function POST(request: NextRequest) {
       email,
       hasPassword: !!password,
       role: userRole,
+      profileImage,
     })
 
     // Validate required fields

@@ -23,7 +23,8 @@ interface AuthContextType {
     secondName: string,
     email: string,
     userRole: string,
-    password: string
+    password: string,
+    profileImage: File | null
   ) => Promise<void>
   logout: () => void
 }
@@ -70,7 +71,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     secondName: string,
     email: string,
     userRole: string,
-    password: string
+    password: string,
+    profileImage: File | null
   ) => {
     console.log("🚀 Attempting signup with:", {
       firstName,
@@ -78,6 +80,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       email,
       password,
       userRole,
+      profileImage,
     })
 
     const res = await fetch("/api/auth/signup", {
@@ -89,6 +92,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         email,
         userRole,
         password,
+        profileImage,
       }),
     })
 
