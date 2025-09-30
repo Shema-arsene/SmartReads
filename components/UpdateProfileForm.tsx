@@ -54,7 +54,6 @@ const UpdateProfileForm = () => {
         profileImage: data.user.profileImage,
         bio: data.user.bio,
       })
-      console.log(data.user)
     } catch (error) {
       console.error("Error fetching user:", error)
     }
@@ -68,6 +67,10 @@ const UpdateProfileForm = () => {
     fetchUser()
   }, [user, loading, router])
 
+  useEffect(() => {
+    fetchUser()
+  }, [])
+
   const [updating, setUpdating] = useState(false)
   const [form, setForm] = useState<UserForm>({
     firstName: "",
@@ -79,6 +82,7 @@ const UpdateProfileForm = () => {
     bio: "",
   })
   const [confirmPassword, setConfirmPassword] = useState("")
+  const [profileImageFile, setProfileImageFile] = useState<File | null>(null)
 
   const userNames = user?.firstName + " " + user?.secondName
 
@@ -100,12 +104,47 @@ const UpdateProfileForm = () => {
     setForm({ ...form, role: value })
   }
 
+  // 3. For changing image
+  const handleProfileImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) setProfileImageFile(file)
+  }
+
+  // 4. Upload image to Cloudinary
+  const uploadProfileImageToCloudinary = async (
+    imageFile: File
+  ): Promise<string | null> => {
+    const formData = new FormData()
+    formData.append("file", imageFile)
+    formData.append(
+      "upload_preset",
+      process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET as string
+    )
+
+    try {
+      const res = await fetch(
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      )
+
+      const data = await res.json()
+      return data.secure_url
+    } catch (err) {
+      console.error("Cloudinary upload failed:", err)
+      return null
+    }
+  }
+
   // Update profile
   const handleProfileUpdate = async (e: React.FormEvent) => {
     e.preventDefault()
     setUpdating(true)
 
     try {
+      // Password validation
       if (form.password && form.password !== confirmPassword) {
         alert("Passwords do not match")
         setUpdating(false)
@@ -113,16 +152,28 @@ const UpdateProfileForm = () => {
         return
       }
 
+      // Upload image if a new one is selected
+      let imageUrl = form.profileImage // fallback to existing
+      if (profileImageFile) {
+        const uploadedUrl = await uploadProfileImageToCloudinary(
+          profileImageFile
+        )
+        if (uploadedUrl) imageUrl = uploadedUrl
+      }
+
       const token = localStorage.getItem("token")
       if (!token) throw new Error("No token found")
+
+      // Prepare payload with updated profileImage
+      const payload = { ...form, profileImage: imageUrl }
 
       const res = await fetch("/api/user", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // ✅ send token
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(form),
+        body: JSON.stringify(payload),
       })
 
       const data = await res.json()
@@ -133,6 +184,8 @@ const UpdateProfileForm = () => {
 
       alert("Profile updated successfully!")
       setConfirmPassword("")
+      setProfileImageFile(null)
+      fetchUser()
     } catch (error) {
       console.error("Error updating profile:", error)
       alert("Update failed. Try again.")
@@ -194,13 +247,23 @@ const UpdateProfileForm = () => {
           <div>
             <label className="block font-medium">Profile Image:</label>
             <input
-              type="text"
-              name="profileImage"
-              value={form.profileImage}
-              onChange={handleChange}
+              type="file"
+              accept="image/*"
+              onChange={handleProfileImageChange}
               className="w-full mt-1 border px-4 py-2 rounded-md text-gray-700"
             />
           </div>
+          {profileImageFile && (
+            <div className="mt-2 mb-4">
+              <Image
+                src={URL.createObjectURL(profileImageFile)}
+                alt="Preview"
+                width={100}
+                height={100}
+                className="object-cover border"
+              />
+            </div>
+          )}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block font-medium">First Name:</label>
