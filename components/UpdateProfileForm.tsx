@@ -212,7 +212,7 @@ const UpdateProfileForm = () => {
   }
 
   return (
-    <main className="min-h-screen bg-gray-50 py-12 px-6">
+    <main className="min-h-screen py-12 px-6">
       <div className="max-w-5xl mx-auto bg-white p-5 md:p-8 rounded-xl shadow-lg">
         <h1 className="text-xl text-center font-semibold">
           Profile Information
