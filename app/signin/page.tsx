@@ -11,24 +11,29 @@ const SignInPage = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
+  const [isSigningIn, setIsSigningIn] = useState(false)
+
   const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setError("") // Clear previous errors
+    setError("")
+    setIsSigningIn(true)
 
     if (!email || !password) {
       setError("All fields are required")
+      setIsSigningIn(false)
       return
     }
 
     try {
       await login(email, password)
-
       router.push("/")
+      setIsSigningIn(false)
     } catch (err) {
       setError("Invalid email or password.")
       console.log("Login failed. Error: ", err)
+      setIsSigningIn(false)
     }
   }
 
@@ -58,7 +63,6 @@ const SignInPage = () => {
             onChange={(e) => setEmail(e.target.value)}
             className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 
                       focus:ring-gray-700"
-            required
           />
         </div>
 
@@ -74,7 +78,6 @@ const SignInPage = () => {
             onChange={(e) => setPassword(e.target.value)}
             className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 
                       focus:ring-gray-700"
-            required
           />
         </div>
 
@@ -83,7 +86,7 @@ const SignInPage = () => {
           className="w-full py-2 px-4 bg-gray-700 hover:bg-gray-900 text-white font-semibold rounded-lg 
                     cursor-pointer duration-300"
         >
-          Sign In
+          {isSigningIn ? "Signing in..." : "Sign In"}
         </button>
 
         <p className="text-sm text-center text-gray-700">

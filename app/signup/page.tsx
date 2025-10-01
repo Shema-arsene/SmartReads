@@ -16,6 +16,7 @@ const SignUpPage = () => {
   const [bio, setBio] = useState("")
   const [profileImageFile, setProfileImageFile] = useState<File | null>(null)
   const [error, setError] = useState("")
+  const [isSigningUp, setIsSigningUp] = useState(false)
   const router = useRouter()
 
   const handleProfileImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,14 +54,17 @@ const SignUpPage = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setError("")
+    setIsSigningUp(true)
 
     if (!firstName || !secondName || !email || !password || !userRole) {
       setError("All fields are required!")
+      setIsSigningUp(false)
       return
     }
 
     if (password !== confirmPassword) {
       setError("Passwords don't match!")
+      setIsSigningUp(false)
       return
     }
 
@@ -86,9 +90,11 @@ const SignUpPage = () => {
         profileImageUrl,
         bio
       )
+      setIsSigningUp(false)
       router.push("/")
     } catch (err: any) {
       setError(err.message || "Something went wrong. Please try again.")
+      setIsSigningUp(false)
       console.log("Error: ", err)
     }
   }
@@ -192,7 +198,7 @@ const SignUpPage = () => {
             type="submit"
             className="w-full bg-gray-700 hover:bg-gray-900 text-white py-3 rounded-lg font-semibold cursor-pointer duration-300"
           >
-            Sign Up
+            {isSigningUp ? "Signing Up..." : "Sign Up"}
           </button>
         </form>
         <p className="mt-4 text-center text-sm text-gray-900">
