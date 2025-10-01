@@ -13,6 +13,7 @@ const SignUpPage = () => {
   const [userRole, setUserRole] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
+  const [bio, setBio] = useState("")
   const [profileImageFile, setProfileImageFile] = useState<File | null>(null)
   const [error, setError] = useState("")
   const router = useRouter()
@@ -82,7 +83,8 @@ const SignUpPage = () => {
         email,
         userRole,
         password,
-        profileImageUrl
+        profileImageUrl,
+        bio
       )
       router.push("/")
     } catch (err: any) {
@@ -158,7 +160,19 @@ const SignUpPage = () => {
               ))}
             </div>
           </div>
-
+          <div>
+            <label htmlFor="bio" className="block font-medium mb-1">
+              Bio
+            </label>
+            <textarea
+              id="bio"
+              placeholder="Tell us something about yourself..."
+              value={bio}
+              onChange={(e) => setBio(e.target.value)}
+              rows={3}
+              className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-700"
+            />
+          </div>
           <input
             type="password"
             placeholder="Password"

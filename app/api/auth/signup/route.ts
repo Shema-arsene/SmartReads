@@ -11,8 +11,15 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json()
-    const { firstName, secondName, email, userRole, password, profileImage } =
-      body
+    const {
+      firstName,
+      secondName,
+      email,
+      userRole,
+      password,
+      profileImage,
+      bio,
+    } = body
 
     console.log("Incoming body", body)
 
@@ -23,6 +30,7 @@ export async function POST(request: NextRequest) {
       hasPassword: !!password,
       role: userRole,
       profileImage,
+      bio,
     })
 
     // Validate required fields
@@ -67,6 +75,7 @@ export async function POST(request: NextRequest) {
       role: userRole,
       password,
       profileImage,
+      bio,
     })
 
     // Save user to database
@@ -92,6 +101,8 @@ export async function POST(request: NextRequest) {
           firstName: savedUser.firstName,
           secondName: savedUser.secondName,
           role: savedUser.role,
+          profileImage: savedUser.profileImage,
+          bio: savedUser.bio,
         },
       }),
       {
