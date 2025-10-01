@@ -9,28 +9,26 @@ const ProfilePage = () => {
   return (
     <section className="mt-10">
       {/* Tabs Layout */}
-      <Tabs defaultValue="stats" className="w-full">
-        <div className="flex flex-col md:flex-row gap-8">
-          {/* Sidebar Tabs */}
-          <TabsList className="flex md:flex-col md:w-48 shrink-0 mx-2 h-fit">
-            <TabsTrigger value="stats" className="w-full">
-              Profile Stats
-            </TabsTrigger>
-            <TabsTrigger value="submit" className="w-full">
-              Update Profile
-            </TabsTrigger>
-          </TabsList>
+      <Tabs defaultValue="stats">
+        {/* Tabs */}
+        <TabsList className="flex p-1 w-fit mx-auto">
+          <TabsTrigger value="stats" className="cursor-pointer">
+            Profile Stats
+          </TabsTrigger>
+          <TabsTrigger value="submit" className="cursor-pointer">
+            Update Profile
+          </TabsTrigger>
+        </TabsList>
 
-          {/* Content */}
-          <div className="flex-1">
-            <TabsContent value="stats">
-              <ProfileStats />
-            </TabsContent>
+        {/* Content */}
+        <div className="flex-1">
+          <TabsContent value="stats">
+            <ProfileStats />
+          </TabsContent>
 
-            <TabsContent value="submit">
-              <UpdateProfileForm />
-            </TabsContent>
-          </div>
+          <TabsContent value="submit">
+            <UpdateProfileForm />
+          </TabsContent>
         </div>
       </Tabs>
     </section>
