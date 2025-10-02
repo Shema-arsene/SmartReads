@@ -59,16 +59,18 @@ export default function BookDetailPage() {
   if (!book) return <p className="p-8">Book not found.</p>
 
   return (
-    <div className="my-10 px-5 rounded-lg shadow-md p-6 max-w-4xl mx-auto">
-      <div className="flex flex-col sm:flex-row gap-6 w-fit max-w-[300px]">
-        <img
-          src={book.imageUrl}
-          alt={book.title}
-          className="w-full md:w-64 h-72 object-cover rounded-lg border border-gray-200"
-        />
+    <div className="my-10 mx-5 px-5 rounded-lg shadow-md p-6 w-fit md:mx-10 xl:mx-auto">
+      <div className="flex flex-col sm:flex-row gap-6 w-fit">
+        <div className="flex-1 flex items-center justify-center max-sm:py-5">
+          <img
+            src={book.imageUrl}
+            alt={book.title}
+            className="w-72 md:w-full h-72 object-cover rounded-lg border border-gray-200"
+          />
+        </div>
 
         <div className="flex-1">
-          <h1 className="text-4xl font-extrabold text-[#dc2626] mb-3">
+          <h1 className="text-4xl font-extrabold text-[#dc2626] mb-3 whitespace-pre-wrap">
             {book.title}
           </h1>
           <p className="text-lg text-gray-800 font-medium mb-2">
@@ -80,17 +82,15 @@ export default function BookDetailPage() {
           </p>
           <p className="text-gray-700 leading-relaxed">{book.description}</p>
 
-          <aside className="my-3 flex items-center justify-between">
-            <button>
-              <a
-                href={`/e-books/read/${book._id}`}
-                className="flex items-center px-4 py-2 bg-[#588b8b] text-white rounded-lg hover:bg-[#476c6c] transition-colors whitespace-nowrap"
-              >
-                <FiBookOpen className="mr-2" />
-                Read Book
-              </a>
-            </button>
-          </aside>
+          <button>
+            <a
+              href={`/e-books/read/${book._id}`}
+              className="flex items-center px-4 py-2 my-3 bg-[#588b8b] text-white rounded-lg hover:bg-[#476c6c] transition-colors whitespace-nowrap"
+            >
+              <FiBookOpen className="mr-2" />
+              Read Book
+            </a>
+          </button>
         </div>
       </div>
     </div>
