@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { FiBookOpen, FiDownload } from "react-icons/fi"
+import { Skeleton } from "@/components/ui/skeleton"
 
 interface Book {
   _id: string
@@ -38,20 +39,19 @@ export default function BookDetailPage() {
     fetchBook()
   }, [bookId])
 
-  console.log("Book data:", book)
-
-  //   Handle download functionality (Function not being used)
-  // const handleDownload = async () => {
-  //   const res = await fetch(`/api/books/download/${book?._id}`)
-  //   if (res.redirected) {
-  //     window.location.href = res.url // Triggers file download
-  //   }
-  // }
-
   if (loading) {
     return (
-      <div className="flex justify-center items-center mt-20 h-screen">
-        <div className="w-16 h-16 border-4 border-[#c8553d] border-t-transparent rounded-full animate-spin"></div>
+      <div className="flex items-center justify-start py-10 px-5">
+        <div className="flex flex-col lg:flex-row space-y-3 gap-3">
+          <Skeleton className="h-[200px] w-[250px] rounded-xl" />
+          <div className="flex flex-col gap-2 px-2 lg:my-5">
+            <Skeleton className="h-5 w-[250px]" />
+            <Skeleton className="h-4 w-[200px]" />
+            <Skeleton className="h-4 w-[200px]" />
+            <Skeleton className="h-4 w-[200px]" />
+            <Skeleton className="h-7 w-[200px]" />
+          </div>
+        </div>
       </div>
     )
   }
@@ -59,8 +59,8 @@ export default function BookDetailPage() {
   if (!book) return <p className="p-8">Book not found.</p>
 
   return (
-    <div className="bg-gray-50 rounded-lg shadow-md p-6 max-w-4xl mx-auto">
-      <div className="flex flex-col md:flex-row gap-6">
+    <div className="my-10 px-5 rounded-lg shadow-md p-6 max-w-4xl mx-auto">
+      <div className="flex flex-col sm:flex-row gap-6 w-fit max-w-[300px]">
         <img
           src={book.imageUrl}
           alt={book.title}
@@ -81,23 +81,10 @@ export default function BookDetailPage() {
           <p className="text-gray-700 leading-relaxed">{book.description}</p>
 
           <aside className="my-3 flex items-center justify-between">
-            {/* <button>
-              <a
-                href={`/api/books/download/${book._id}`}
-                download
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center px-4 py-2 bg-[#c8553d] text-white rounded-lg hover:bg-[#b43f30] transition-colors"
-              >
-                <FiDownload className="mr-2" />
-                Download Book
-              </a>
-            </button> */}
-
             <button>
               <a
                 href={`/e-books/read/${book._id}`}
-                className="flex items-center px-4 py-2 bg-[#588b8b] text-white rounded-lg hover:bg-[#476c6c] transition-colors"
+                className="flex items-center px-4 py-2 bg-[#588b8b] text-white rounded-lg hover:bg-[#476c6c] transition-colors whitespace-nowrap"
               >
                 <FiBookOpen className="mr-2" />
                 Read Book
