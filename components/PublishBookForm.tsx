@@ -52,6 +52,7 @@ const PublishBookForm = ({ user }: PublishBookFormProps) => {
   const [image, setImage] = useState<File | null>(null)
   const [bookFile, setBookFile] = useState<File | null>(null)
   const [loading, setLoading] = useState(false)
+  const [publishing, setPublishing] = useState(false)
   const [error, setError] = useState("")
   const [success, setSuccess] = useState("")
 
@@ -185,8 +186,6 @@ const PublishBookForm = ({ user }: PublishBookFormProps) => {
         console.error("API error:", data)
         throw new Error(data.message || "Failed to publish book.")
       }
-
-      console.log("Book sent to the backend: ", bookPayload)
 
       toast.success("Book published successfully", {
         description: `'Book: ${title}' was published successfully!`,
@@ -339,11 +338,6 @@ const PublishBookForm = ({ user }: PublishBookFormProps) => {
           disabled={loading}
           className="bg-[#c8553dff] text-white font-medium px-4 py-2 rounded-lg hover:bg-[#e0553dff] cursor-pointer"
         >
-          {loading && (
-            <div className="flex justify-center items-center h-[70vh]">
-              <div className="w-6 h-6 border-4 border-[#c8553dff] border-t-transparent rounded-full animate-spin"></div>
-            </div>
-          )}
           {loading ? "Publishing..." : "Publish Book"}
         </button>
       </form>
