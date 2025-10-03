@@ -4,6 +4,7 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { useAuth } from "@/app/context/AuthContext"
+import { toast } from "sonner"
 
 const SignInPage = () => {
   const { login } = useAuth()
@@ -23,6 +24,9 @@ const SignInPage = () => {
     if (!email || !password) {
       setError("All fields are required")
       setIsSigningIn(false)
+      toast.error("Error signing in", {
+        description: "Your email and password are required!",
+      })
       return
     }
 
@@ -30,10 +34,16 @@ const SignInPage = () => {
       await login(email, password)
       router.push("/")
       setIsSigningIn(false)
+      toast.success("Signed in successful", {
+        description: "You were successfully signed in",
+      })
     } catch (err) {
       setError("Invalid email or password.")
       console.log("Login failed. Error: ", err)
       setIsSigningIn(false)
+      toast.error("Signing in failed", {
+        description: "Invalid email or password.",
+      })
     }
   }
 

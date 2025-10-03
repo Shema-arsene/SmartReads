@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { useAuth } from "@/app/context/AuthContext"
+import { toast } from "sonner"
 
 const SignUpPage = () => {
   const { signup } = useAuth()
@@ -57,14 +58,20 @@ const SignUpPage = () => {
     setIsSigningUp(true)
 
     if (!firstName || !secondName || !email || !password || !userRole) {
-      setError("All fields are required!")
+      // setError("All fields are required!")
       setIsSigningUp(false)
+      toast.error("Error signing up", {
+        description: "All fields are required!",
+      })
       return
     }
 
     if (password !== confirmPassword) {
       setError("Passwords don't match!")
       setIsSigningUp(false)
+      toast.error("Error signing up", {
+        description: "Passwords don't match. Try again.",
+      })
       return
     }
 
@@ -78,8 +85,6 @@ const SignUpPage = () => {
       }
     }
 
-    console.log("Profile Image URL: ", profileImageUrl)
-
     try {
       await signup(
         firstName,
@@ -92,10 +97,16 @@ const SignUpPage = () => {
       )
       setIsSigningUp(false)
       router.push("/")
+      toast.success("Sign up successful", {
+        description: "Your account was created successfully",
+      })
     } catch (err: any) {
       setError(err.message || "Something went wrong. Please try again.")
       setIsSigningUp(false)
       console.log("Error: ", err)
+      toast.error("Error signing up", {
+        description: "Something went wrong. Please try again",
+      })
     }
   }
 
