@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation"
 import { Loader2 } from "lucide-react"
 import Image from "next/image"
 import { getInitials } from "@/utils/getInitials"
+import { toast } from "sonner"
 
 import {
   Select,
@@ -179,6 +180,9 @@ const UpdateProfileForm = () => {
       const data = await res.json()
 
       if (!res.ok) {
+        toast.error("Failed to update your profile", {
+          description: "There was a problem updating Your profile",
+        })
         throw new Error(data.message || "Update failed")
       }
 
@@ -186,6 +190,9 @@ const UpdateProfileForm = () => {
       setConfirmPassword("")
       setProfileImageFile(null)
       fetchUser()
+      toast.success("Profile updated", {
+        description: "Your profile was updated successfully",
+      })
     } catch (error) {
       console.error("Error updating profile:", error)
       alert("Update failed. Try again.")

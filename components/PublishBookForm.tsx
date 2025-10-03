@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import { toast } from "sonner"
 
 type User = {
   _id: string
@@ -37,8 +38,6 @@ export const bookCategories = [
 
 const PublishBookForm = ({ user }: PublishBookFormProps) => {
   const router = useRouter()
-
-  console.log("Logged in User: ", user)
 
   const [formData, setFormData] = useState({
     title: "",
@@ -188,6 +187,10 @@ const PublishBookForm = ({ user }: PublishBookFormProps) => {
       }
 
       console.log("Book sent to the backend: ", bookPayload)
+
+      toast.success("Book published successfully", {
+        description: `'Book: ${title}' was published successfully!`,
+      })
 
       // 4. Reset UI
       setSuccess("Book published successfully!")

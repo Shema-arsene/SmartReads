@@ -4,6 +4,7 @@ import "./globals.css"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import { AuthProvider } from "./context/AuthContext"
+import { Toaster } from "sonner"
 
 const lato = Lato({
   subsets: ["latin"],
@@ -29,6 +30,7 @@ export default function RootLayout({
         <AuthProvider>
           <Navbar />
           {children}
+          <Toaster position="top-right" richColors />
           <Footer />
         </AuthProvider>
       </body>
