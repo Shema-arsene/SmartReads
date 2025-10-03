@@ -145,20 +145,19 @@ const Footer = () => {
       </div>
 
       <aside className="mt-5 flex flex-col sm:flex-row items-start sm:items-center justify-between px-10">
-        <div className="flex items-center text-lg font-thin">
+        <div className="flex items-center">
           {[
-            { href: "/audio-books", label: "Audio-Books" },
-            { href: "/e-books", label: "Books" },
-            { href: "/", label: "Podcasts" },
-          ].reduce<React.ReactNode[]>((acc, { href, label }, index, arr) => {
+            { label: "Audio-Books" },
+            { label: "Books" },
+            { label: "Podcasts" },
+          ].reduce<React.ReactNode[]>((acc, { label }, index, arr) => {
             acc.push(
-              <Link
-                href={href}
+              <p
                 key={`link-${index}`}
-                className="text-black text-sm hover:underline duration-300 whitespace-nowrap"
+                className="text-black text-sm font-normal hover:underline duration-300 whitespace-nowrap cursor-pointer"
               >
                 {label}
-              </Link>
+              </p>
             )
             if (index < arr.length - 1) {
               acc.push(
@@ -172,7 +171,7 @@ const Footer = () => {
         </div>
 
         <div>
-          <p className="text-sm font-thin whitespace-nowrap">
+          <p className="text-sm font-normal whitespace-nowrap">
             Copyright &copy; {CurrentYear} SmartReads Inc.
           </p>
         </div>
