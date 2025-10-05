@@ -30,7 +30,7 @@ export default function BookDetailPage() {
     } catch (err) {
       console.error("Failed to fetch book:", err)
     } finally {
-      // setLoading(false)
+      setLoading(false)
     }
   }
 
