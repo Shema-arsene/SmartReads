@@ -30,7 +30,7 @@ export default function BookDetailPage() {
     } catch (err) {
       console.error("Failed to fetch book:", err)
     } finally {
-      setLoading(false)
+      // setLoading(false)
     }
   }
 
@@ -42,14 +42,14 @@ export default function BookDetailPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-start py-10 px-5">
-        <div className="flex flex-col lg:flex-row space-y-3 gap-3">
+        <div className="flex flex-col md:flex-row space-y-3 gap-3 mx-auto">
           <Skeleton className="h-[200px] w-[250px] rounded-xl" />
-          <div className="flex flex-col gap-2 px-2 lg:my-5">
+          <div className="flex flex-col gap-2 px-2 md:my-5">
             <Skeleton className="h-5 w-[250px]" />
             <Skeleton className="h-4 w-[200px]" />
             <Skeleton className="h-4 w-[200px]" />
             <Skeleton className="h-4 w-[200px]" />
-            <Skeleton className="h-7 w-[200px]" />
+            <Skeleton className="h-7 w-[70px]" />
           </div>
         </div>
       </div>
