@@ -30,8 +30,6 @@ export default function PublishBookPage() {
     return null
   }
 
-  console.log("Logged in User: ", user)
-
   return (
     <div className="max-w-3xl mx-auto p-4">
       <h1 className="text-2xl font-bold text-gray-900 mb-4">
