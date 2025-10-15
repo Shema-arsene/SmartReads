@@ -50,7 +50,7 @@ const PublishBookForm = ({ user }: PublishBookFormProps) => {
   })
 
   const [image, setImage] = useState<File | null>(null)
-  const [bookFile, setBookFile] = useState<File | null>(null)
+  const [file, setFile] = useState<File | null>(null)
   const [loading, setLoading] = useState(false)
   const [publishing, setPublishing] = useState(false)
   const [error, setError] = useState("")
@@ -110,8 +110,8 @@ const PublishBookForm = ({ user }: PublishBookFormProps) => {
 
     try {
       const res = await fetch(
-        // `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/assets/media_library/folders/SmartReads_books_folder`,
-        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/raw/upload`,
+        "https://api.sandbox.xcooll.com/api/v1/upload/file",
+        // `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/raw/upload`,
         {
           method: "POST",
           body: formData,
@@ -119,7 +119,7 @@ const PublishBookForm = ({ user }: PublishBookFormProps) => {
       )
 
       const data = await res.json()
-      return data.secure_url // This is the URL to save in your DB
+      return data.url // This is the URL to save in your DB
     } catch (err) {
       console.error("Cloudinary upload failed:", err)
       return null
@@ -141,7 +141,7 @@ const PublishBookForm = ({ user }: PublishBookFormProps) => {
       !description ||
       !price ||
       !image ||
-      !bookFile
+      !file
     ) {
       setLoading(false)
       setError("All fields are required.")
@@ -151,7 +151,7 @@ const PublishBookForm = ({ user }: PublishBookFormProps) => {
     try {
       // 1. Upload image to Cloudinary
       const imageUrl = await uploadImageToCloudinary(image)
-      const bookUrl = await uploadBookFile(bookFile)
+      const bookUrl = await uploadBookFile(file)
 
       if (!imageUrl) {
         setLoading(false)
@@ -204,7 +204,7 @@ const PublishBookForm = ({ user }: PublishBookFormProps) => {
       })
 
       setImage(null)
-      setBookFile(null)
+      setFile(null)
       router.refresh()
     } catch (err: any) {
       setError(err.message || "Something went wrong.")
@@ -325,7 +325,7 @@ const PublishBookForm = ({ user }: PublishBookFormProps) => {
             type="file"
             name="file"
             accept=".pdf,.doc,.docx"
-            onChange={(e) => setBookFile(e.target.files?.[0] || null)}
+            onChange={(e) => setFile(e.target.files?.[0] || null)}
             className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-700"
           />
         </div>
